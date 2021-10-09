@@ -149,4 +149,4 @@
 
 
 ;;; projectile
-(setq projectile-project-search-path '(("~/Projects" . 1)))
+(setq projectile-project-search-path '(("~/Projects" . 2)))
