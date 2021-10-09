@@ -41,13 +41,9 @@
  '(vc-annotate-very-old-color nil)
  '(warning-suppress-log-types
    '(((defvaralias losing-value woman-topic-history))
-     ((defvaralias losing-value woman-topic-history))
-     ((defvaralias losing-value woman-topic-history))
      (org-load-hook)))
  '(warning-suppress-types
    '(((defvaralias losing-value woman-topic-history))
-     ((defvaralias losing-value woman-topic-history))
-     ((defvaralias losing-value woman-topic-history))
      (org-load-hook))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
