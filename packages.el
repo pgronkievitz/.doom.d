@@ -58,3 +58,6 @@
 (package! guess-language)
 (package! websocket)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+(package! org-alert :recipe (:host github :repo "spegoraro/org-alert" :files ("*.el")))
+(package! org-notifications :recipe (:host github :repo "doppelc/org-notifications" :files ("*.el" "sounds")))
+(package! pretty-agenda :recipe (:host github :repo "Artawower/.doom" :files ("pretty-agenda.el")))
