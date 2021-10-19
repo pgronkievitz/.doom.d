@@ -151,3 +151,9 @@
 
 ;;; projectile
 (setq projectile-project-search-path '(("~/Projects" . 2)))
+
+;;; latex export
+(add-to-list 'org-latex-packages-alist
+             '("AUTO" "babel" t ("pdflatex")))
+(add-to-list 'org-latex-packages-alist
+             '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
