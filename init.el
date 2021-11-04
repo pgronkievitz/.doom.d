@@ -136,9 +136,10 @@
            (julia
             +lsp)              ; a better, faster MATLAB
            ;;kotlin            ; a better, slicker Java(Script)
-           ;;(latex
-           ;; +lsp
-           ;; +fold)           ; writing papers in Emacs has never been so fun
+           (latex
+            +cdlatex
+            +lsp
+            +fold)           ; writing papers in Emacs has never been so fun
            ;;lean              ; for folks with too much to prove
            ;;ledger            ; be audit you can be
            ;;lua               ; one-based indices? one-based indices
