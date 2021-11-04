@@ -162,3 +162,15 @@
         ("AUTO" "graphicx" t nil)
         ("AUTO" "amsmath" t nil)
         ("" "hyperref" nil)))
+(defvar my/bibs '("~/Documents/biblio.bib"))
+
+(use-package citar-org
+  :no-require
+  :bind ; optional
+  (:map org-mode-map
+        ("C-c b" . #'org-cite-insert)) ; Also bound to C-c C-x C-@
+  :custom
+  (org-cite-global-bibliography my/bibs)
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar))
