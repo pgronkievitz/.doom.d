@@ -75,7 +75,7 @@
            (spell)        ; tasing you for misspelling mispelling
            grammar           ; tasing grammar mistake every you make
        :tools
-           ;;ansible
+           ansible
            biblio
            debugger          ; FIXME stepping through code, to help you add bugs
            direnv
