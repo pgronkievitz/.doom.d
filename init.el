@@ -150,8 +150,6 @@
            (org
            +dragndrop
            +gnuplot
-           +journal
-           +jupyter
            +pandoc
            +pomodoro
            +present
