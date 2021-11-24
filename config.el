@@ -164,7 +164,7 @@
         ("" "amsmath" t)
         ("" "amssymb" t)
         ("AUTO" "babel" t ("pdflatex"))
-        ("AUTO" "polyglossia" t ("xelatex" "lualatex"))
+        ("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
 (defvar my/bibs '("~/Documents/biblio.bib"))
 
 (use-package citar-org
