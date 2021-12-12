@@ -96,37 +96,37 @@
 
 (setq calendar-christian-all-holidays-flag t)
 (setq calendar-holidays
-'((holiday-fixed 1 1 "New Year's Day")
- (holiday-fixed 2 14 "Valentine's Day")
- (holiday-fixed 3 17 "St. Patrick's Day")
- (holiday-fixed 4 1 "April Fools' Day")
- (holiday-fixed 5 25 "Mother's Day")
- (holiday-fixed 5 2 "Flag Day")
- (holiday-fixed 6 0 "Father's Day")
- (holiday-fixed 11 11 "Independence Day")
- (holiday-fixed 5 1 "Labor Day")
- (holiday-easter-etc)
- (holiday-fixed 12 25 "Christmas")
- (if calendar-christian-all-holidays-flag
-     (append
-      (holiday-fixed 1 6 "Epiphany")
-      (holiday-fixed 12 24 "Christmas Eve")
-      ;; (holiday-julian 12 25 "Christmas (Julian calendar)")
-      (holiday-fixed 8 15 "Assumption")
-      (holiday-advent 0 "Advent")))
- (solar-equinoxes-solstices)
- (holiday-sexp calendar-daylight-savings-starts
-               (format "Daylight Saving Time Begins %s"
-                       (solar-time-string
-                        (/ calendar-daylight-savings-starts-time
-                           (float 60))
-                        calendar-standard-time-zone-name)))
- (holiday-sexp calendar-daylight-savings-ends
-               (format "Daylight Saving Time Ends %s"
-                       (solar-time-string
-                        (/ calendar-daylight-savings-ends-time
-                           (float 60))
-                        calendar-daylight-time-zone-name)))))
+ '((holiday-fixed 1 1 "New Year's Day")
+   (holiday-fixed 2 14 "Valentine's Day")
+   (holiday-fixed 3 17 "St. Patrick's Day")
+   (holiday-fixed 4 1 "April Fools' Day")
+   (holiday-fixed 5 25 "Mother's Day")
+   (holiday-fixed 5 2 "Flag Day")
+   (holiday-fixed 6 0 "Father's Day")
+   (holiday-fixed 11 11 "Independence Day")
+   (holiday-fixed 5 1 "Labor Day")
+   (holiday-easter-etc)
+   (holiday-fixed 12 25 "Christmas")
+   (if calendar-christian-all-holidays-flag
+       (append
+        (holiday-fixed 1 6 "Epiphany")
+        (holiday-fixed 12 24 "Christmas Eve")
+        ;; (holiday-julian 12 25 "Christmas (Julian calendar)")
+        (holiday-fixed 8 15 "Assumption")
+        (holiday-advent 0 "Advent")))
+   (solar-equinoxes-solstices)
+   (holiday-sexp calendar-daylight-savings-starts
+                 (format "Daylight Saving Time Begins %s"
+                         (solar-time-string
+                          (/ calendar-daylight-savings-starts-time
+                             (float 60))
+                          calendar-standard-time-zone-name)))
+   (holiday-sexp calendar-daylight-savings-ends
+                 (format "Daylight Saving Time Ends %s"
+                         (solar-time-string
+                          (/ calendar-daylight-savings-ends-time
+                             (float 60))
+                          calendar-daylight-time-zone-name)))))
 
 ;;; org-roam
 
