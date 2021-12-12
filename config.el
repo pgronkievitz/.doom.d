@@ -93,6 +93,10 @@
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
+(map! (:map org-mode-map
+       :localleader
+       :prefix ("m" . "org-roam")
+       :desc "Open ORUI" :n "G" #'orui-open))
 (setq ispell-dictionary "pl")
 
 (setq calendar-christian-all-holidays-flag t)
