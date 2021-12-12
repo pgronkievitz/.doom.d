@@ -186,3 +186,5 @@
         (ess-fl-keyword:delimiters . t)
         (ess-fl-keyword:= . t)
         (ess-R-fl-keyword:F&T . t)))
+;;; latexmk export
+(setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
