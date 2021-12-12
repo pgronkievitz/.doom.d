@@ -68,6 +68,7 @@
       :localleader
       :desc "Outline" "O" #'org-ol-tree)
       
+(use-package! guess-language)
 (setq guess-language-languages '(en pl)
       guess-language-min-paragraph-length 45)
 (custom-set-faces
