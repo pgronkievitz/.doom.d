@@ -188,3 +188,7 @@
         (ess-R-fl-keyword:F&T . t)))
 ;;; latexmk export
 (setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+;;; orgmode misc
+(use-package! org-alert)
+(use-package! org-ol-tree)
+(use-package! org-fragtog)
