@@ -144,15 +144,6 @@
 (setq projectile-project-search-path '(("~/Projects" . 2)))
 
 ;;; latex export
-;; (setq org-latex-default-packages-alist
-;;       '(("AUTO" "inputenc" t ("pdflatex"))
-;;         ("T1" "fontenc" t ("pdflatex"))
-;;         ("" "xcolor" nil) ; Generally useful
-;;         ("AUTO" "babel" t ("pdflatex"))
-;;         ("AUTO" "polyglossia" t ("xelatex" "lualatex"))
-;;         ("AUTO" "graphicx" t nil)
-;;         ("AUTO" "amsmath" t nil)
-;;         ("" "hyperref" nil)))
 (setq org-latex-default-packages-alist
       '(("AUTO" "inputenc" t ("pdflatex"))
         ("T1" "fontenc" t ("pdflatex"))
@@ -163,8 +154,12 @@
         ("normalem" "ulem" t)
         ("" "amsmath" t)
         ("" "amssymb" t)
+        ("" "capt-of" nil)
+        ("" "hyperref" nil)
         ("AUTO" "babel" t ("pdflatex"))
         ("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
+
+;;; bibliography
 (defvar my/bibs '("~/Documents/biblio.bib"))
 
 (use-package citar-org
@@ -177,6 +172,3 @@
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar))
-        ("" "capt-of" nil)
-        ("" "hyperref" nil))
-)
