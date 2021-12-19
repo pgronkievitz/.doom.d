@@ -183,7 +183,7 @@
             +lsp)              ; JSON, but readable
            ;;zig               ; C, but simpler
        :email
-           ;;mu4e
+           (mu4e +org)
            ;;notmuch
            ;;(wanderlust +gmail)
        :app

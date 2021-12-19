@@ -270,3 +270,45 @@
                            :todo ("SOMEDAY")
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+(defvar my-mu4e-account-alist
+  '(("Private"
+     (mu4e-sent-folder "/private/Saved Items")
+     (mu4e-drafts-folder "/private/Drafts")
+     (user-mail-address "patryk@gronkiewi.cz")
+     (smtpmail-default-smtp-server "smtp.purelymail.com")
+     (smtpmail-local-domain "purelymail.com")
+     (smtpmail-smtp-user "patryk@gronkiewi.cz")
+     (smtpmail-smtp-server "smtp.purelymail.com")
+     (smtpmail-stream-type starttls)
+     (smtpmail-smtp-service 587))
+    ("University"
+     (mu4e-sent-folder "/university/Saved Items")
+     (mu4e-drafts-folder "/university/Drafts")
+     (user-mail-address "164157@stud.prz.edu.pl")
+     (smtpmail-default-smtp-server "stud.prz.edu.pl")
+     (smtpmail-local-domain "stud.prz.edu.pl")
+     (smtpmail-smtp-user "164157@stud.prz.edu.pl")
+     (smtpmail-smtp-server "stud.prz.edu.pl")
+     (smtpmail-stream-type starttls)
+     (smtpmail-smtp-service 587))))
+(defun my-mu4e-set-account ()
+  "Set the account for composing a message."
+  (let* ((account
+          (if mu4e-compose-parent-message
+              (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                (string-match "/\\(.*?\\)/" maildir)
+                (match-string 1 maildir))
+            (completing-read (format "Compose with account: (%s) "
+                                     (mapconcat #'(lambda (var) (car var))
+                                                my-mu4e-account-alist "/"))
+                             (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+                             nil t nil nil (caar my-mu4e-account-alist))))
+         (account-vars (cdr (assoc account my-mu4e-account-alist))))
+    (if account-vars
+        (mapc #'(lambda (var)
+                  (set (car var) (cadr var)))
+              account-vars)
+      (error "No email account found"))))
+
+;; ask for account when composing mail
+(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
