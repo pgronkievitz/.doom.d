@@ -210,6 +210,9 @@
       org-agenda-block-separator nil
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
+;;;;;;;;;;;;
+;; AGENDA ;;
+;;;;;;;;;;;;
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
@@ -270,6 +273,10 @@
                            :todo ("SOMEDAY")
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+;;;;;;;;;;;
+;; EMAIL ;;
+;;;;;;;;;;;
+
 (defvar my-mu4e-account-alist
   '(("Private"
      (mu4e-sent-folder "/private/Saved Items")
