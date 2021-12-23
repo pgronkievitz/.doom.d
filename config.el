@@ -197,6 +197,12 @@
 (use-package! org-ol-tree)
 (use-package! org-fragtog)
 ;;; agenda
+;;;;;;;;;;;;
+;; AGENDA ;;
+;;;;;;;;;;;;
+
+(setq org-lowest-priority ?E)
+
 (use-package! nano-agenda)
 (use-package! pretty-agenda)
 (use-package! org-super-agenda
@@ -210,11 +216,6 @@
       org-agenda-block-separator nil
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
-;;;;;;;;;;;;
-;; AGENDA ;;
-;;;;;;;;;;;;
-
-(setq org-lowest-priority ?E)
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
