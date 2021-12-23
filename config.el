@@ -214,6 +214,7 @@
 ;; AGENDA ;;
 ;;;;;;;;;;;;
 
+(setq org-lowest-priority ?E)
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
