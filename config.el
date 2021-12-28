@@ -248,6 +248,9 @@
                            :deadline past
                            :face error
                            :order 7)
+                          (:name "Self care"
+                           :tag "selfhelp"
+                           :order 9)
                           (:name "Assignments"
                            :tag "Assignment"
                            :order 10)
@@ -272,6 +275,12 @@
                           (:name "University"
                            :tag "uczelnia"
                            :order 32)
+                          (:name "Computers"
+                           :tag "computers"
+                           :order 33)
+                          (:name "Selfhosted"
+                           :tag "selfhosted"
+                           :order 34)
                           (:name "Trivial"
                            :priority<= "E"
                            :tag ("Trivial" "Unimportant")
