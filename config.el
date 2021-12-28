@@ -278,6 +278,7 @@
                            :todo ("SOMEDAY")
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+(setq org-super-agenda-header-map evil-org-agenda-mode-map)
 ;;;;;;;;;;;
 ;; EMAIL ;;
 ;;;;;;;;;;;
