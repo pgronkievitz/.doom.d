@@ -34,7 +34,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/notes/")
+(setq org-directory "~/Documents/notes/"
+      deft-directory "~/Documents/notes/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -61,6 +62,7 @@
       calendar-date-style 'iso)
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
+(after! org-mode (global-org-pretty-table-mode))
 (use-package! org-ol-tree
   :commands org-ol-tree)
 (map! :map org-mode-map
@@ -196,6 +198,34 @@
 (use-package! org-alert)
 (use-package! org-ol-tree)
 (use-package! org-fragtog)
+(use-package laas
+  :hook (LaTeX-mode . laas-mode)
+  :config ; do whatever here
+  (aas-set-snippets 'laas-mode
+                    ;; set condition!
+                    :cond #'texmathp ; expand only while in math
+                    "supp" "\\supp"
+                    "On" "O(n)"
+                    "O1" "O(1)"
+                    "Olog" "O(\\log n)"
+                    "Olon" "O(n \\log n)"
+                    ;; bind to functions!
+                    "Sum" (lambda () (interactive)
+                            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
+                    ;; add accent snippets
+                    :cond #'laas-object-on-left-condition
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
+                    :cond #'laas-org-mathp
+                    "supp" "\\supp"
+                    "On" "O(n)"
+                    "O1" "O(1)"
+                    "Olog" "O(\\log n)"
+                    "Olon" "O(n \\log n)"
+                    "ooo" "\\infty"
+                    ;; bind to functions!
+                    "Sum" (lambda () (interactive)
+                            (yas-expand-snippet "\\sum_{$1^{$2} $0"))
+                    ))
 ;;; agenda
 ;;;;;;;;;;;;
 ;; AGENDA ;;
