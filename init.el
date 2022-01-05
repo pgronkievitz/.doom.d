@@ -4,7 +4,7 @@
            ;;layout            ; auie,ctsrnm is the superior home row
        :completion
            (company
-            +tng)              ; the ultimate code completion backend
+            +childframe)              ; the ultimate code completion backend
            ;;helm              ; the *other* search engine for love and life
            ;;ido               ; the other *other* search engine...
            ;; (ivy
