@@ -317,8 +317,8 @@
                            :todo ("SOMEDAY")
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
-(after! org-super-agenda-mode
-        (setq org-super-agenda-header-map evil-org-agenda-mode-map))
+(setq org-super-agenda-header-map (make-sparse-keymap))
+(add-hook! 'org-mode-hook #'org-pretty-table-mode)
 ;;;;;;;;;;;
 ;; EMAIL ;;
 ;;;;;;;;;;;
