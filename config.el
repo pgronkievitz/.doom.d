@@ -217,7 +217,7 @@
 (use-package! org-ol-tree)
 (use-package! org-fragtog)
 (use-package laas
-  :hook (LaTeX-mode . laas-mode)
+  :hook '(LaTeX-mode . laas-mode)
   :config ; do whatever here
   (aas-set-snippets 'laas-mode
                     ;; set condition!
