@@ -116,7 +116,7 @@
 (map! (:map org-mode-map
        :localleader
        :prefix ("m" . "org-roam")
-       :desc "Open ORUI" :n "G" #'orui-open))
+       :desc "Open ORUI" :n "G" #'org-roam-ui-open))
 (setq ispell-dictionary "pl")
 
 (setq calendar-christian-all-holidays-flag t)
