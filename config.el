@@ -85,6 +85,8 @@
   '(org-block ((t (:inherit 'fixed-pitch))))
   '(line-number ((t (:inherit 'fixed-pitch))))
   '(org-code ((t (:inherit 'fixed-pitch)))))
+(setq org-hidden-keywords '(title))
+
 
 (setq
  org-pomodoro-keep-killed-pomodoro-time t)
