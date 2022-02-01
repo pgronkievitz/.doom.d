@@ -87,6 +87,16 @@
   '(org-code ((t (:inherit 'fixed-pitch)))))
 (setq org-hidden-keywords '(title))
 
+(setq org-startup-indented t
+      org-superstar-headline-bullets-list '("◉" "◈" "○" "▷")
+      org-superstar-special-todo-items t
+      org-ellipsis "  "
+      org-pretty-entities t
+      org-hide-emphasis-markers t
+      org-agenda-block-separator ""
+      org-fontify-whole-heading-line t
+      org-fontify-done-headline t
+      org-fontify-quote-and-verse-blocks t)
 
 (setq
  org-pomodoro-keep-killed-pomodoro-time t)
