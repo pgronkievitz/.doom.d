@@ -337,6 +337,10 @@
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 (setq org-super-agenda-header-map (make-sparse-keymap))
 (add-hook! 'org-mode-hook #'org-pretty-table-mode)
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
+(add-hook! 'org-mode-hook #'hl-line-mode)
+(add-hook! 'org-mode-hook #'variable-pitch-mode)
+(add-hook! 'org-mode-hook #'laas-mode)
 ;;;;;;;;;;;
 ;; EMAIL ;;
 ;;;;;;;;;;;
