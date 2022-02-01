@@ -78,7 +78,13 @@
   '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
   '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.2))))
-  '(org-level-5 ((t (:inherit outline-5 :height 1.1)))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.1))))
+  '(org-table ((t (:inherit 'fixed-pitch))))
+  '(org-document-title ((t (:inherit 'variable-pitch :height 2.0))))
+  '(org-inline-src-block ((t (:inherit 'fixed-pitch))))
+  '(org-block ((t (:inherit 'fixed-pitch))))
+  '(line-number ((t (:inherit 'fixed-pitch))))
+  '(org-code ((t (:inherit 'fixed-pitch)))))
 
 (setq
  org-pomodoro-keep-killed-pomodoro-time t)
