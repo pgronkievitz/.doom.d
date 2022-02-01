@@ -23,7 +23,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 18)
       doom-big-font (font-spec :family "FantasqueSansMono Nerd Font" :size 36)
-      doom-variable-pitch-font (font-spec :family "Ubuntu Nerd Font" :size 18)
+      doom-variable-pitch-font (font-spec :family "Merriweather" :size 18)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 18))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
