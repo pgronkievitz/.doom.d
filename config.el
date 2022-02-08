@@ -21,8 +21,8 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 18)
-      doom-big-font (font-spec :family "FantasqueSansMono Nerd Font" :size 36)
+(setq doom-font (font-spec :family "VictorMono Nerd Font" :size 18)
+      doom-big-font (font-spec :family "VictorMono Nerd Font" :size 36)
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 18)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 18))
 
