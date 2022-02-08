@@ -70,9 +70,16 @@
       :localleader
       :desc "Outline" "O" #'org-ol-tree)
       
-(use-package! guess-language)
-(setq guess-language-languages '(en pl)
-      guess-language-min-paragraph-length 45)
+(use-package! guess-language
+  :config
+  :init (add-hook 'text-mode-hook #'guess-language-mode)
+(setq guess-language-langcodes '((en . ("en_US" "English"))
+                                 (pl . ("pl_PL" "Polish")))
+      guess-language-languages '(en pl)))
+(setq ispell-dictionary "pl_PL")
+(setq langtool-bin "/etc/profiles/per-user/pg/bin/languagetool-commandline"
+      langtool-default-language nil)
+
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
@@ -117,7 +124,6 @@
        :localleader
        :prefix ("m" . "org-roam")
        :desc "Open ORUI" :n "G" #'org-roam-ui-open))
-(setq ispell-dictionary "pl")
 
 (setq calendar-christian-all-holidays-flag t)
 (setq calendar-holidays
