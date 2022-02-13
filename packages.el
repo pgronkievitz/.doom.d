@@ -62,5 +62,4 @@
 (package! org-notifications :recipe (:host github :repo "doppelc/org-notifications" :files ("*.el" "sounds")))
 (package! nano-agenda :recipe (:host github :repo "rougier/nano-agenda" :files ("nano-agenda.el")))
 (package! pretty-agenda :recipe (:host github :repo "Artawower/.doom" :files ("pretty-agenda.el")))
-(package! kaolin-themes)
 (package! laas :recipe (:host github :repo "tecosaur/LaTeX-auto-activating-snippets"))
