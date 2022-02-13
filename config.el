@@ -186,9 +186,13 @@
         ("" "amsmath" t)
         ("" "amssymb" t)
         ("" "capt-of" nil)
-        ("" "hyperref" nil)
+        ("" "listings")
+        ("" "color")
+        ("hidelinks" "hyperref" nil)
         ("AUTO" "babel" t ("pdflatex"))
-        ("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
+        ("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+      org-latex-listings t
+      )
 
 ;;; bibliography
 (defvar my/bibs '("~/Documents/biblio.bib"))
