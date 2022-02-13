@@ -393,3 +393,5 @@
 
 ;; ask for account when composing mail
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
+
+(use-package! elpher)
