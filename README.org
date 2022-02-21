@@ -1,14 +1,314 @@
+#+TITLE:   pgronkievitz's configuration of /DOOM/
+#+STARTUP: inlineimages nofold
+
+* Table of contents :TOC:
+:properties:
+:visibility: folded:
+:end:
+- [[#misc][Misc]]
+  - [[#completions][Completions]]
+  - [[#doom-features][Doom features]]
+  - [[#dev-features][Dev features]]
+  - [[#visual-nicities][Visual nicities]]
+  - [[#making-doom-a-proper-ide][Making DOOM a proper IDE]]
+  - [[#ergonomics][Ergonomics]]
+  - [[#ui][UI]]
+  - [[#editor][Editor]]
+  - [[#emacs][Emacs]]
+  - [[#terminal][Terminal]]
+  - [[#checking][Checking]]
+  - [[#tools][Tools]]
+  - [[#os][OS]]
+  - [[#languages][Languages]]
+  - [[#email][Email]]
+  - [[#app][App]]
+  - [[#config][Config]]
+- [[#initel-file][~init.el~ file]]
+- [[#packages][Packages]]
+  - [[#org-packages][Org packages]]
+  - [[#ye-olde-internet][Ye olde internet]]
+  - [[#writing-in-general][Writing in general]]
+  - [[#theming][Theming]]
+- [[#configuration][Configuration]]
+
+* Misc
+** Completions
+#+name: completion
+#+begin_src elisp :noweb yes
+:completion
+    (company
+    +childframe)
+    (vertico +icons)
+#+end_src
+** Doom features
+#+name: doomfeatui
+#+begin_src elisp
+doom                ; what makes DOOM look the way it does
+doom-dashboard      ; a nifty splash screen for Emacs
+doom-quit           ; DOOM quit-message prompts when you quit Emacs
+#+end_src
+** Dev features
+#+name: devfeatui
+#+begin_src elisp
+fill-column
+indent-guides       ; highlighted indent columns
+vc-gutter           ; vcs diff in the fringe
+vi-tilde-fringe     ; fringe tildes to mark beyond EOB
+#+end_src
+** Visual nicities
+#+name: nicevisui
+#+begin_src elisp
+(emoji +github +unicode)
+hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+(ligatures
++extra)            ; ligatures and symbols to make your code pretty again
+(modeline)            ; snazzy, Atom-inspired modeline, plus API
+ophints             ; highlight the region an operation acts on
+(popup +all)        ; tame sudden yet inevitable temporary windows
+zen                 ; distraction-free coding or writing
+#+end_src
+** Making DOOM a proper IDE
+#+name: ideui
+#+begin_src elisp
+(treemacs +lsp)              ; a project drawer, like neotree but cooler
+#+end_src
+** Ergonomics
+#+name: ergonomicsui
+#+begin_src elisp
+(window-select +numbers)     ; visually switch windows
+workspaces          ; tab emulation, persistence & separate workspaces
+#+end_src
+#+name: ergonomicseditor
+#+begin_src elisp
+#+end_src
+** UI
+#+name: ui
+#+begin_src elisp :noweb yes
+:ui
+    <<doomfeatui>>
+    <<nicevisui>>
+    <<devfeatui>>
+    <<ideui>>
+    <<ergonomicsui>>
+#+end_src
+** Editor
+#+name: editor
+#+begin_src elisp :noweb yes
+:editor
+    (evil
+    +everywhere)       ; come to the dark side, we have cookies
+    file-templates      ; auto-snippets for empty files
+    fold                ; (nigh) universal code folding
+    (format
+    +onsave)           ; automated prettiness
+    rotate-text       ; cycle region at point between text candidates
+    snippets            ; my elves. They type so I don't have to
+    word-wrap           ; soft wrapping with language-aware indent
+#+end_src
+** Emacs
+#+name: emacs
+#+begin_src elisp
+:emacs
+    (dired
+    +icons
+    +ranger)         ; making dired pretty [functional]
+    electric          ; smarter, keyword-based electric-indent
+    (ibuffer +icons)         ; interactive buffer management
+    (undo
+    +tree)           ; persistent, smarter undo for your inevitable mistakes
+    vc                ; version-control and Emacs, sitting in a tree
+#+end_src
+** Terminal
+#+name: terminal
+#+begin_src elisp
+:term
+    vterm               ; the best terminal emulation in Emacs
+#+end_src
+** Checking
+#+name: checkers
+#+begin_src elisp
+:checkers
+    (syntax +childframe)     ; tasing you for every semicolon you forget
+    (spell +flyspell +hunspell)        ; tasing you for misspelling mispelling
+    grammar           ; tasing grammar mistake every you make
+#+end_src
+** Tools
+#+name: tools
+#+begin_src elisp
+:tools
+    ;;ansible
+    biblio
+    debugger          ; FIXME stepping through code, to help you add bugs
+    direnv
+    (docker +lsp)
+    editorconfig        ; let someone else argue about tabs vs spaces
+    ein                 ; tame Jupyter notebooks with emacs
+    (eval +overlay)     ; run code, run (also, repls)
+    (lookup
+    +offline
+    +dictionary
+    +docsets)           ; navigate your code and its documentation
+    (lsp +peek)
+    (magit
+    +forge)            ; a git porcelain for Emacs
+    make                ; run make tasks from Emacs
+    pdf                 ; pdf enhancements
+    rgb                 ; creating color strings
+    terraform         ; infrastructure as code
+    upload              ; map local to remote projects via ssh/ftp
+#+end_src
+** OS
+#+name: os
+#+begin_src elisp
+:os
+    tty               ; improve the terminal Emacs experience
+#+end_src
+** Languages
+#+name: languages
+#+begin_src elisp
+:lang
+    beancount         ; mind the GAAP
+    ;;(cc
+    ;; +lsp)               ; C > C++ == 1
+    (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
+    data                ; config/data formats
+    emacs-lisp          ; drown in parentheses
+    (ess +lsp)               ; emacs speaks statistics
+    (go +lsp)         ; the hipster dialect
+    (json
+    +lsp)              ; At least it ain't XML
+    ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+    (latex
+    +latexmk
+    +cdlatex)           ; writing papers in Emacs has never been so fun
+    (lua +lsp)               ; one-based indices? one-based indices
+    (markdown)
+    nix                 ; I hereby declare "nix geht mehr!"
+    (org
+    +dragndrop
+    +gnuplot
+    +pandoc
+    +pomodoro
+    +present
+    +pretty
+    +hugo
+    +noter
+    +roam2)              ; organize your plain life in plain text
+    plantuml            ; diagrams for confusing people more
+    (python
+    +lsp
+    +pyright)             ; beautiful is better than ugly
+    rest              ; Emacs as a REST client
+    rst               ; ReST in peace
+    ;;(rust
+    ;;+lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+    sh                ; she sells {ba,z,fi}sh shells on the C xor
+    web               ; the tubes
+    (yaml
+    +lsp)              ; JSON, but readable
+#+end_src
+** Email
+#+name: email
+#+begin_src elisp
+:email
+    (mu4e +org)
+#+end_src
+** App
+#+name: app
+#+begin_src elisp
+:app
+    calendar
+    irc               ; how neckbeards socialize
+    rss        ; emacs as an RSS reader
+#+end_src
+** Config
+#+name: config
+#+begin_src elisp
+:config
+    (default +bindings +smartparens)
+#+end_src
+* ~init.el~ file
+#+begin_src elisp :tangle init.el :noweb yes
+(doom!
+       <<completion>>
+       <<ui>>
+       <<editor>>
+       <<emacs>>
+       <<terminal>>
+       <<checkers>>
+       <<tools>>
+       <<os>>
+       <<languages>>
+       <<email>>
+       <<app>>
+       <<config>>
+)
+#+end_src
+
+* Packages
+#+begin_src elisp :tangle packages.el :noweb yes
+<<orgpkgs>>
+<<protopkgs>>
+<<writingpkgs>>
+<<themingpkgs>>
+#+end_src
+** Org packages
+#+name: orgpkgs
+#+begin_src elisp
+(package! org-super-agenda)
+(package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table"))
+(package! org-fragtog)
+(package! org-appear :recipe (:host github :repo "awth13/org-appear"))
+(package! org-pretty-tags)
+(package! org-ol-tree :recipe (:host github :repo "Townk/org-ol-tree"))
+(package! laas :recipe (:host github :repo "tecosaur/LaTeX-auto-activating-snippets"))
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+(package! websocket)
+(package! org-alert :recipe (:host github :repo "spegoraro/org-alert" :files ("*.el")))
+(package! org-notifications :recipe (:host github :repo "doppelc/org-notifications" :files ("*.el" "sounds")))
+(package! pretty-agenda :recipe (:host github :repo "Artawower/.doom" :files ("pretty-agenda.el")))
+#+end_src
+** Ye olde internet
+#+name: protopkgs
+#+begin_src elisp
+(package! elpher)
+(package! elfeed-protocol)
+#+end_src
+** Writing in general
+#+name: writingpkgs
+#+begin_src elisp
+(package! guess-language)
+#+end_src
+** Theming
+#+name: themingpkgs
+#+begin_src elisp
+(unpin! doom-themes)
+#+end_src
+* Configuration
+#+name: identity
+#+begin_src elisp
 (setq user-full-name "Patryk Gronkiewicz")
 (unless (eq (system-name) "themis")
     (setq user-mail-address "patryk.gronkiewicz@omniscopy.com")
     (setq user-mail-address "patryk@gronkiewicz.dev")
   )
+#+end_src
+
+#+name: fonts
+#+begin_src elisp
 (setq doom-font (font-spec :family "VictorMono Nerd Font" :size 14)
       doom-big-font (font-spec :family "VictorMono Nerd Font" :size 28)
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 14)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 14))
+#+end_src
+
+#+name: theming
+#+begin_src elisp
 (setq doom-theme 'doom-ayu-light)
 (setq fancy-splash-image "~/Pictures/emacs.svg")
+#+end_src
+#+name: calendar
+#+begin_src elisp
 (setq calendar-week-start-day 1
       calendar-date-style 'iso)
 (setq calendar-christian-all-holidays-flag t)
@@ -44,6 +344,9 @@
                           (/ calendar-daylight-savings-ends-time
                              (float 60))
                           calendar-daylight-time-zone-name)))))
+#+end_src
+#+name: orgconf
+#+begin_src elisp
 (setq org-directory "~/Documents/notes/")
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
@@ -269,6 +572,9 @@
 (add-hook! 'org-mode-hook #'hl-line-mode)
 (add-hook! 'org-mode-hook #'variable-pitch-mode)
 (add-hook! 'org-mode-hook #'laas-mode)
+#+end_src
+#+name: writingconf
+#+begin_src elisp
 (use-package! guess-language
   :config
   :init (add-hook 'text-mode-hook #'guess-language-mode)
@@ -278,8 +584,14 @@
 (setq ispell-dictionary "pl_PL")
 (setq langtool-bin "/etc/profiles/per-user/pg/bin/languagetool-commandline"
       langtool-default-language nil)
+#+end_src
+#+name: projects
+#+begin_src elisp
 ;;; projectile
 (setq projectile-project-search-path '(("~/Projects" . 2)))
+#+end_src
+#+name: rconf
+#+begin_src elisp
 ;;; ess config
 (setq ess-R-font-lock-keywords
       '((ess-R-fl-keyword:keywords . t)
@@ -294,6 +606,9 @@
         (ess-fl-keyword:delimiters . t)
         (ess-fl-keyword:= . t)
         (ess-R-fl-keyword:F&T . t)))
+#+end_src
+#+name: emailconf
+#+begin_src elisp
 ;;;;;;;;;;;
 ;; EMAIL ;;
 ;;;;;;;;;;;
@@ -341,7 +656,9 @@
 ;; ask for account when composing mail
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 
-(use-package! elpher)
+#+end_src
+#+name: rss
+#+begin_src elisp
 (use-package! elfeed-protocol
   :after elfeed
   :config (elfeed-protocol-enable)
@@ -352,3 +669,21 @@
                  (list "fever+https://pg@rss.lab.home"
                        :api-url "https://rss.lab.home/api/fever.php"
                        :use-authinfo t))))
+#+end_src
+#+name: protoconf
+#+begin_src elisp
+(use-package! elpher)
+#+end_src
+#+begin_src elisp :tangle config.el :noweb yes
+<<identity>>
+<<fonts>>
+<<theming>>
+<<calendar>>
+<<orgconf>>
+<<writingconf>>
+<<projects>>
+<<rconf>>
+<<emailconf>>
+<<protoconf>>
+<<rss>>
+#+end_src
