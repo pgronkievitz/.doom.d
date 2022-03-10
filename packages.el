@@ -10,6 +10,8 @@
 (package! org-alert :recipe (:host github :repo "spegoraro/org-alert" :files ("*.el")))
 (package! org-notifications :recipe (:host github :repo "doppelc/org-notifications" :files ("*.el" "sounds")))
 (package! pretty-agenda :recipe (:host github :repo "Artawower/.doom" :files ("pretty-agenda.el")))
+(package! doct :recipe (:host github :repo "progfolio/doct"))
+(package! screenshot :recipe (:host github :repo "tecosaur/screenshot"))
 (package! elpher)
 (package! elfeed-protocol)
 (package! guess-language)

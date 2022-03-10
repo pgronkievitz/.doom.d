@@ -7,24 +7,22 @@
            doom                ; what makes DOOM look the way it does
            doom-dashboard      ; a nifty splash screen for Emacs
            doom-quit           ; DOOM quit-message prompts when you quit Emacs
-           (emoji +github +unicode)
            hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-           (ligatures
-           +extra)            ; ligatures and symbols to make your code pretty again
-           (modeline)            ; snazzy, Atom-inspired modeline, plus API
+           (ligatures +extra)  ; ligatures and symbols to make your code pretty again
+           vi-tilde-fringe     ; fringe tildes to mark beyond EOB
+           (modeline +light)            ; snazzy, Atom-inspired modeline, plus API
+           (emoji +github +unicode)
            ophints             ; highlight the region an operation acts on
            (popup +all)        ; tame sudden yet inevitable temporary windows
            zen                 ; distraction-free coding or writing
            fill-column
            indent-guides       ; highlighted indent columns
            vc-gutter           ; vcs diff in the fringe
-           vi-tilde-fringe     ; fringe tildes to mark beyond EOB
            (treemacs +lsp)              ; a project drawer, like neotree but cooler
            (window-select +numbers)     ; visually switch windows
            workspaces          ; tab emulation, persistence & separate workspaces
        :editor
-           (evil
-           +everywhere)       ; come to the dark side, we have cookies
+           (evil +everywhere)       ; come to the dark side, we have cookies
            file-templates      ; auto-snippets for empty files
            fold                ; (nigh) universal code folding
            (format

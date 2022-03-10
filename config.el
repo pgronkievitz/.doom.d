@@ -1,24 +1,36 @@
 (setq user-full-name "Patryk Gronkiewicz")
-(unless (eq (system-name) "themis")
+(if (eq (system-name) "themis")
     (setq user-mail-address "patryk.gronkiewicz@omniscopy.com")
-    (setq user-mail-address "patryk@gronkiewicz.dev")
-  )
+    (setq user-mail-address "patryk@gronkiewicz.dev"))
 (setq doom-font (font-spec :family "VictorMono Nerd Font" :size 14)
       doom-big-font (font-spec :family "VictorMono Nerd Font" :size 28)
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 14)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 14))
-(setq doom-theme 'doom-ayu-light)
+(custom-set-faces!
+  '(org-level-1 :height 1.5)
+  '(org-level-2 :height 1.4)
+  '(org-level-3 :height 1.3)
+  '(org-level-4 :height 1.2)
+  '(org-level-5 :height 1.1)
+  '(org-table :inherit 'fixed-pitch)
+  '(org-document-title :inherit 'variable-pitch :height 2.0)
+  '(org-inline-src-block :inherit 'fixed-pitch)
+  '(org-block :inherit 'fixed-pitch)
+  '(line-number :inherit 'fixed-pitch)
+  '(org-code :inherit 'fixed-pitch))
+(setq doom-theme 'doom-nord-light)
 (setq fancy-splash-image "~/Pictures/emacs.svg")
 (setq calendar-week-start-day 1
-      calendar-date-style 'iso)
-(setq calendar-christian-all-holidays-flag t)
+      calendar-date-style 'iso
+      calendar-christian-all-holidays-flag t)
 (setq calendar-holidays
  '((holiday-fixed 1 1 "New Year's Day")
    (holiday-fixed 2 14 "Valentine's Day")
    (holiday-fixed 3 17 "St. Patrick's Day")
    (holiday-fixed 4 1 "April Fools' Day")
-   (holiday-fixed 5 25 "Mother's Day")
+   (holiday-fixed 5 26 "Mother's Day")
    (holiday-fixed 5 2 "Flag Day")
+   (holiday-fixed 5 3 "Constitution Day")
    (holiday-fixed 6 0 "Father's Day")
    (holiday-fixed 11 11 "Independence Day")
    (holiday-fixed 5 1 "Labor Day")
@@ -28,7 +40,6 @@
        (append
         (holiday-fixed 1 6 "Epiphany")
         (holiday-fixed 12 24 "Christmas Eve")
-        ;; (holiday-julian 12 25 "Christmas (Julian calendar)")
         (holiday-fixed 8 15 "Assumption")
         (holiday-advent 0 "Advent")))
    (solar-equinoxes-solstices)
@@ -45,6 +56,7 @@
                              (float 60))
                           calendar-daylight-time-zone-name)))))
 (setq org-directory "~/Documents/notes/")
+(use-package! screenshot)
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
 (after! org-mode (global-org-pretty-table-mode))
@@ -55,18 +67,6 @@
       :localleader
       :desc "Outline" "O" #'org-ol-tree)
 (setq display-line-numbers-type 'relative)
-(custom-set-faces
-  '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
-  '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
-  '(org-level-4 ((t (:inherit outline-4 :height 1.2))))
-  '(org-level-5 ((t (:inherit outline-5 :height 1.1))))
-  '(org-table ((t (:inherit 'fixed-pitch))))
-  '(org-document-title ((t (:inherit 'variable-pitch :height 2.0))))
-  '(org-inline-src-block ((t (:inherit 'fixed-pitch))))
-  '(org-block ((t (:inherit 'fixed-pitch))))
-  '(line-number ((t (:inherit 'fixed-pitch))))
-  '(org-code ((t (:inherit 'fixed-pitch)))))
 (setq org-hidden-keywords '(title))
 (setq org-startup-indented t
       org-superstar-headline-bullets-list '("◉" "◈" "○" "▷")
@@ -74,7 +74,7 @@
       org-ellipsis "  "
       org-pretty-entities t
       org-hide-emphasis-markers t
-      org-agenda-block-separator ""
+      org-agenda-block-separator "~~~~~~~~~"
       org-fontify-whole-heading-line t
       org-fontify-done-headline t
       org-fontify-quote-and-verse-blocks t)
@@ -162,6 +162,7 @@
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
                     "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
+                    "zz" (lambda () (interactive) (laas-wrap-previous-object "mathcal"))
                     :cond #'laas-org-mathp
                     "supp" "\\supp"
                     "On" "O(n)"
@@ -169,6 +170,10 @@
                     "Olog" "O(\\log n)"
                     "Olon" "O(n \\log n)"
                     "ooo" "\\infty"
+                    "RR" "\\mathbb{R}"
+                    "ZZ" "\\mathbb{Z}"
+                    "NN" "\\mathbb{N}"
+                    "cc" "\\subset"
                     ;; bind to functions!
                     "Sum" (lambda () (interactive)
                             (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
@@ -210,6 +215,9 @@
                         '((:name "Next to do"
                            :todo "NEXT"
                            :order 1)
+                          (:name "Unclosed loops"
+                           :todo "WIP"
+                           :order 2)
                           (:name "Important"
                            :tag "Important"
                            :priority "A"
@@ -248,6 +256,9 @@
                           (:name "Waiting"
                            :todo "WAITING"
                            :order 20)
+                          (:name "Projekt inżynierski"
+                           :tag "inz"
+                           :order 31)
                           (:name "University"
                            :tag "uczelnia"
                            :order 32)
@@ -264,10 +275,203 @@
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 (setq org-super-agenda-header-map (make-sparse-keymap))
+(use-package! doct :commands doct)
+(after! org-capture
+  (defun org-capture-select-template-prettier (&optional keys)
+    "Select a capture template, in a prettier way than default
+  Lisp programs can force the template by setting KEYS to a string."
+    (let ((org-capture-templates
+           (or (org-contextualize-keys
+                (org-capture-upgrade-templates org-capture-templates)
+                org-capture-templates-contexts)
+               '(("t" "Task" entry (file+headline "" "Tasks")
+                  "* TODO %?\n  %u\n  %a")))))
+      (if keys
+          (or (assoc keys org-capture-templates)
+              (error "No capture template referred to by \"%s\" keys" keys))
+        (org-mks org-capture-templates
+                 "Select a capture template\n━━━━━━━━━━━━━━━━━━━━━━━━━"
+                 "Template key: "
+                 `(("q" ,(concat (all-the-icons-octicon "stop" :face 'all-the-icons-red :v-adjust 0.01) "\tAbort")))))))
+  (advice-add 'org-capture-select-template :override #'org-capture-select-template-prettier)
+  
+  (defun org-mks-pretty (table title &optional prompt specials)
+    "Select a member of an alist with multiple keys. Prettified.
+  
+  TABLE is the alist which should contain entries where the car is a string.
+  There should be two types of entries.
+  
+  1. prefix descriptions like (\"a\" \"Description\")
+     This indicates that `a' is a prefix key for multi-letter selection, and
+     that there are entries following with keys like \"ab\", \"ax\"…
+  
+  2. Select-able members must have more than two elements, with the first
+     being the string of keys that lead to selecting it, and the second a
+     short description string of the item.
+  
+  The command will then make a temporary buffer listing all entries
+  that can be selected with a single key, and all the single key
+  prefixes.  When you press the key for a single-letter entry, it is selected.
+  When you press a prefix key, the commands (and maybe further prefixes)
+  under this key will be shown and offered for selection.
+  
+  TITLE will be placed over the selection in the temporary buffer,
+  PROMPT will be used when prompting for a key.  SPECIALS is an
+  alist with (\"key\" \"description\") entries.  When one of these
+  is selected, only the bare key is returned."
+    (save-window-excursion
+      (let ((inhibit-quit t)
+            (buffer (org-switch-to-buffer-other-window "*Org Select*"))
+            (prompt (or prompt "Select: "))
+            case-fold-search
+            current)
+        (unwind-protect
+            (catch 'exit
+              (while t
+                (setq-local evil-normal-state-cursor (list nil))
+                (erase-buffer)
+                (insert title "\n\n")
+                (let ((des-keys nil)
+                      (allowed-keys '("\C-g"))
+                      (tab-alternatives '("\s" "\t" "\r"))
+                      (cursor-type nil))
+                  ;; Populate allowed keys and descriptions keys
+                  ;; available with CURRENT selector.
+                  (let ((re (format "\\`%s\\(.\\)\\'"
+                                    (if current (regexp-quote current) "")))
+                        (prefix (if current (concat current " ") "")))
+                    (dolist (entry table)
+                      (pcase entry
+                        ;; Description.
+                        (`(,(and key (pred (string-match re))) ,desc)
+                         (let ((k (match-string 1 key)))
+                           (push k des-keys)
+                           ;; Keys ending in tab, space or RET are equivalent.
+                           (if (member k tab-alternatives)
+                               (push "\t" allowed-keys)
+                             (push k allowed-keys))
+                           (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) (propertize "›" 'face 'font-lock-comment-face) "  " desc "…" "\n")))
+                        ;; Usable entry.
+                        (`(,(and key (pred (string-match re))) ,desc . ,_)
+                         (let ((k (match-string 1 key)))
+                           (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) "   " desc "\n")
+                           (push k allowed-keys)))
+                        (_ nil))))
+                  ;; Insert special entries, if any.
+                  (when specials
+                    (insert "─────────────────────────\n")
+                    (pcase-dolist (`(,key ,description) specials)
+                      (insert (format "%s   %s\n" (propertize key 'face '(bold all-the-icons-red)) description))
+                      (push key allowed-keys)))
+                  ;; Display UI and let user select an entry or
+                  ;; a sub-level prefix.
+                  (goto-char (point-min))
+                  (unless (pos-visible-in-window-p (point-max))
+                    (org-fit-window-to-buffer))
+                  (let ((pressed (org--mks-read-key allowed-keys
+                                                    prompt
+                                                    (not (pos-visible-in-window-p (1- (point-max)))))))
+                    (setq current (concat current pressed))
+                    (cond
+                     ((equal pressed "\C-g") (user-error "Abort"))
+                     ;; Selection is a prefix: open a new menu.
+                     ((member pressed des-keys))
+                     ;; Selection matches an association: return it.
+                     ((let ((entry (assoc current table)))
+                        (and entry (throw 'exit entry))))
+                     ;; Selection matches a special entry: return the
+                     ;; selection prefix.
+                     ((assoc current specials) (throw 'exit current))
+                     (t (error "No entry available")))))))
+          (when buffer (kill-buffer buffer))))))
+  (advice-add 'org-mks :override #'org-mks-pretty)
+  (setq org-capture-templates
+        (doct '(("Personal todo" :keys "t"
+                   :icon ("checklist" :set "octicon" :color "green")
+                   :file +org-capture-todo-file
+                   :prepend t
+                   :headline "Private"
+                   :type entry
+                   :template ("* TODO %?"
+                              "%a"))
+                  ("Personal note" :keys "n"
+                   :icon ("sticky-note-o" :set "faicon" :color "green")
+                   :file +org-capture-todo-file
+                   :prepend t
+                   :headline "Private"
+                   :type entry
+                   :template ("* %?"
+                              "%a"))
+                ("University" :keys "u"
+                 :icon ("university" :set "faicon" :color "blue")
+                 :file +org-capture-todo-file
+                 :prepend t
+                 :template ("* TODO %?"
+                            " %a")
+                 :children (
+("Koło" :keys "k" :icon ("university" :set "faicon" :color "magenta") :headline "Koło")
+("Autoprezentacja i wystąpienia publiczne" :keys "a" :icon ("university" :set "faicon" :color "magenta") :headline "Autoprezentacja i wystąpienia publiczne")
+("Ekonometria" :keys "e" :icon ("university" :set "faicon" :color "magenta") :headline "Ekonometria")
+("Modelowanie danych" :keys "M" :icon ("university" :set "faicon" :color "magenta") :headline "Modelowanie danych")
+("Nowoczesne metody uczenia maszynowego" :keys "m" :icon ("university" :set "faicon" :color "magenta") :headline "Nowoczesne metody uczenia maszynowego")
+("Procesy stochastyczne" :keys "s" :icon ("university" :set "faicon" :color "magenta") :headline "Procesy stochastyczne")
+("Rozwój kompetencji biznesowych" :keys "r" :icon ("university" :set "faicon" :color "magenta") :headline "Rozwój kompetencji biznesowych")
+("Usługi sieciowe w biznesie" :keys "S" :icon ("university" :set "faicon" :color "magenta") :headline "Usługi sieciowe w biznesie")
+("Wielowymiarowa analiza danych" :keys "d" :icon ("university" :set "faicon" :color "magenta") :headline "Wielowymiarowa analiza danych")
+("Wnioskowanie w warunkach niepewności" :keys "n" :icon ("university" :set "faicon" :color "magenta") :headline "Wnioskowanie w warunkach niepewności")
+("Teoria gier" :keys "g" :icon ("university" :set "faicon" :color "magenta") :headline "Teoria gier")
+("J. angielski dla inżynierów" :keys "e" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")                ))
+                                 ("Project" :keys "p"
+                   :icon ("repo" :set "octicon" :color "silver")
+                   :prepend t
+                   :type entry
+                   :headline "Inbox"
+                   :template ("* %{time-or-todo} %?"
+                              "%i"
+                              "%a")
+                   :file ""
+                   :custom (:time-or-todo "")
+                   :children (("Project-local todo" :keys "t"
+                               :icon ("checklist" :set "octicon" :color "green")
+                               :time-or-todo "TODO"
+                               :file +org-capture-project-todo-file)
+                              ("Project-local note" :keys "n"
+                               :icon ("sticky-note" :set "faicon" :color "yellow")
+                               :time-or-todo "%U"
+                               :file +org-capture-project-notes-file)
+                              ("Project-local changelog" :keys "c"
+                               :icon ("list" :set "faicon" :color "blue")
+                               :time-or-todo "%U"
+                               :heading "Unreleased"
+                               :file +org-capture-project-changelog-file)))
+                  ("\tCentralised project templates"
+                   :keys "o"
+                   :type entry
+                   :prepend t
+                   :template ("* %{time-or-todo} %?"
+                              "%i"
+                              "%a")
+                   :children (("Project todo"
+                               :keys "t"
+                               :prepend nil
+                               :time-or-todo "TODO"
+                               :heading "Tasks"
+                               :file +org-capture-central-project-todo-file)
+                              ("Project note"
+                               :keys "n"
+                               :time-or-todo "%U"
+                               :heading "Notes"
+                               :file +org-capture-central-project-notes-file)
+                              ("Project changelog"
+                               :keys "c"
+                               :time-or-todo "%U"
+                               :heading "Unreleased"
+                               :file +org-capture-central-project-changelog-file)))
+                ))))
 (add-hook! 'org-mode-hook #'org-pretty-table-mode)
 (add-hook! 'org-mode-hook #'+org-pretty-mode)
 (add-hook! 'org-mode-hook #'hl-line-mode)
-(add-hook! 'org-mode-hook #'variable-pitch-mode)
+(add-hook! 'org-mode-hook #'mixed-pitch-mode)
 (add-hook! 'org-mode-hook #'laas-mode)
 (use-package! guess-language
   :config
