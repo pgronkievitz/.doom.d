@@ -18,7 +18,7 @@
   '(org-block :inherit 'fixed-pitch)
   '(line-number :inherit 'fixed-pitch)
   '(org-code :inherit 'fixed-pitch))
-(setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-horizon-light)
 (setq fancy-splash-image "~/Pictures/emacs.svg")
 (setq calendar-week-start-day 1
       calendar-date-style 'iso
