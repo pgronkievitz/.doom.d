@@ -334,7 +334,7 @@ I've changed styles of orgmode buffers /a bit/ to make them more pleasure to wor
 Currently back to Nord. Also I'm a bit bored by default DOOM splash, so I've set my own.
 #+name: theming
 #+begin_src elisp
-(setq doom-theme 'doom-horizon-light)
+(setq doom-theme 'doom-nord-light)
 (setq fancy-splash-image "~/Pictures/emacs.svg")
 #+end_src
 
