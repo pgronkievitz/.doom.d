@@ -72,7 +72,7 @@
            beancount         ; mind the GAAP
            ;;(cc
            ;; +lsp)               ; C > C++ == 1
-           (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
+           ;;(csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
            data                ; config/data formats
            emacs-lisp          ; drown in parentheses
            (ess +lsp)               ; emacs speaks statistics
@@ -91,17 +91,15 @@
            +gnuplot
            +pandoc
            +pomodoro
-           +present
            +pretty
            +hugo
-           +noter
            +roam2)              ; organize your plain life in plain text
-           plantuml            ; diagrams for confusing people more
+           ;;plantuml            ; diagrams for confusing people more
            (python
            +lsp
            +pyright)             ; beautiful is better than ugly
            rest              ; Emacs as a REST client
-           rst               ; ReST in peace
+           ;;rst               ; ReST in peace
            ;;(rust
            ;;+lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
            sh                ; she sells {ba,z,fi}sh shells on the C xor

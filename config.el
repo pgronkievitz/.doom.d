@@ -118,6 +118,7 @@
         ("normalem" "ulem" t)
         ("" "amsmath" t)
         ("" "amssymb" t)
+        ("" "amsthm" t)
         ("" "capt-of" nil)
         ("" "listings")
         ("" "color")
