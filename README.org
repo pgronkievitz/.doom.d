@@ -208,7 +208,7 @@ Yuo cen't bee rong
     +lsp
     +pyright)             ; beautiful is better than ugly
     rest              ; Emacs as a REST client
-    rst               ; ReST in peace
+    ;;rst               ; ReST in peace
     ;;(rust
     ;;+lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
     sh                ; she sells {ba,z,fi}sh shells on the C xor
