@@ -179,7 +179,7 @@ Yuo cen't bee rong
     beancount         ; mind the GAAP
     ;;(cc
     ;; +lsp)               ; C > C++ == 1
-    (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
+    ;;(csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
     data                ; config/data formats
     emacs-lisp          ; drown in parentheses
     (ess +lsp)               ; emacs speaks statistics
