@@ -198,10 +198,8 @@ Yuo cen't bee rong
     +gnuplot
     +pandoc
     +pomodoro
-    +present
     +pretty
     +hugo
-    +noter
     +roam2)              ; organize your plain life in plain text
     ;;plantuml            ; diagrams for confusing people more
     (python
