@@ -442,6 +442,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
         ("normalem" "ulem" t)
         ("" "amsmath" t)
         ("" "amssymb" t)
+        ("" "amsthm" t)
         ("" "capt-of" nil)
         ("" "listings")
         ("" "color")
