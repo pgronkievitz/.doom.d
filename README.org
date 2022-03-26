@@ -292,6 +292,7 @@ Yuo cen't bee rong
 #+name: themingpkgs
 #+begin_src elisp
 (unpin! doom-themes)
+(package! stimmung-themes :recipe (:host github :repo "motform/stimmung-themes"))
 #+end_src
 * Configuration
 I want to use different email address depending on what system I'm using. ~patryk@gronkiewicz.dev~ as my general-purpose email and ~patryk.gronkiewicz@omniscopy.com~ for work purposes.
@@ -332,7 +333,9 @@ I've changed styles of orgmode buffers /a bit/ to make them more pleasure to wor
 Currently back to Nord. Also I'm a bit bored by default DOOM splash, so I've set my own.
 #+name: theming
 #+begin_src elisp
-(setq doom-theme 'doom-nord-light)
+(use-package! stimmung-themes )
+(setq doom-theme 'stimmung-themes-light)
+(setq stimmung-themes-light-highlight-color "SkyBlue")
 (setq fancy-splash-image "~/Pictures/emacs.svg")
 #+end_src
 
