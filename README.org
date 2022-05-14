@@ -205,6 +205,8 @@ Yuo cen't bee rong
     ;;plantuml            ; diagrams for confusing people more
     (python
     +lsp
+    +conda
+    +poetry
     +pyright)             ; beautiful is better than ugly
     rest              ; Emacs as a REST client
     ;;rst               ; ReST in peace
