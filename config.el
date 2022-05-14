@@ -87,7 +87,7 @@
 
 (use-package! websocket
   :after org-roam)
-(after! org-roam-mode-hook (require 'org-expor))
+(after! org-roam-mode-hook (require 'org-export))
 (use-package! org-roam-ui
   :after org
   :config
@@ -177,9 +177,6 @@
                     "Olog" "O(\\log n)"
                     "Olon" "O(n \\log n)"
                     "ooo" "\\infty"
-                    ;; "RR" "\\mathbb{R}"
-                    ;; "ZZ" "\\mathbb{Z}"
-                    ;; "NN" "\\mathbb{N}"
                     "cc" "\\subset"
                     "c=" "\\subseteq"
                     ;; bind to functions!
@@ -591,7 +588,19 @@
   :custom
   (elfeed-use-curl t)
   (elfeed-set-timeout 36000)
-  (elfeed-feeds '(("fever+https://pg@rss.lab.home"
+  (elfeed-feeds '(("owncloud+https://pg@nc.lab.home"
                     :api-url "https://rss.lab.home/api/fever.php"
                     :use-authinfo t
-                    :autotags '(("https://forum.yeswas.pl/posts.rss" forums))))))
+                    :autotags '(("https://forum.yeswas.pl/posts.rss" forums)
+                                ("https://www.rousette.org.uk/index.xml" blog tech)
+                                ("https://maggieappleton.com/rss.xml" blog tech zk)
+                                ("https://pzel.name/feed.xml" blog tech)
+                                ("https://weekly.nixos.org/feeds/all.rss.xml" news tech nix server)
+                                ("https://www.tweag.io/rss.xml" tech programming functional)
+                                ("https://www.internet-czas-dzialac.pl/rss/" tech blog privacy)
+                                ("https://confuzeus.com/index.xml" blog tech)
+                                ("https://feeds.feedburner.com/JakOszczedzacPieniadze" blog finances)
+                                ("https://blog.tecosaur.com/tmio/rss.xml" blog tech emacs)
+                                ("https://devopsiarz.pl/rss.xml" blog tech devops)
+                                ("https://devstyle.pl/feed/" blog tech programming)
+                                )))))
