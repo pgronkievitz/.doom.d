@@ -446,6 +446,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
         ("" "amsmath" t)
         ("" "amssymb" t)
         ("" "amsthm" t)
+        ("" "akkmathset" t)
         ("" "capt-of" nil)
         ("" "listings")
         ("" "color")
@@ -491,10 +492,8 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
                     "Olog" "O(\\log n)"
                     "Olon" "O(n \\log n)"
                     "ooo" "\\infty"
-                    "RR" "\\mathbb{R}"
-                    "ZZ" "\\mathbb{Z}"
-                    "NN" "\\mathbb{N}"
                     "cc" "\\subset"
+                    "c=" "\\subseteq"
                     ;; bind to functions!
                     "Sum" (lambda () (interactive)
                             (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
