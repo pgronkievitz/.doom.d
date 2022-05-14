@@ -819,6 +819,7 @@ All my projects are stored in special directory and I'm organizing them in separ
 #+begin_src elisp
 ;;; projectile
 (setq projectile-project-search-path '(("~/Projects" . 2)))
+(set-file-template! 'python-mode :ignore t)
 #+end_src
 I have to write /a lot/ in R for classes, so ESS is rudimentary.
 #+name: rconf
