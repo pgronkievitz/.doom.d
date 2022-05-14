@@ -397,8 +397,6 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
 (setq display-line-numbers-type 'relative)
 (setq org-hidden-keywords '(title))
 (setq org-startup-indented t
-      org-superstar-headline-bullets-list '("◉" "◈" "○" "▷")
-      org-superstar-special-todo-items t
       org-ellipsis "  "
       org-pretty-entities t
       org-hide-emphasis-markers t
@@ -414,6 +412,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
 
 (use-package! websocket
   :after org-roam)
+(after! org-roam-mode-hook (require 'org-export))
 (use-package! org-roam-ui
   :after org
   :config
