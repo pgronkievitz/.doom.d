@@ -507,6 +507,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
                     ;; bind to functions!
                     "Sum" (lambda () (interactive)
                             (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
+(setq org-log-done 'time)
 (defun roam-sitemap (title list)
   (concat "#+OPTIONS: ^:nil author:nil html-postamble:nil\n"
           "#+SETUPFILE: ./simple_inline.theme\n"
@@ -544,6 +545,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
 ;;;;;;;;;;;;
 
 (setq org-lowest-priority ?C)
+(add-to-list 'org-modules 'ol-habit)
 
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
@@ -928,7 +930,6 @@ I don't use mu4e much, but it's nice to have.
 
 ;; ask for account when composing mail
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
-
 #+end_src
 My beloved RSS feeds are stored in my custom FreshRSS instance. I access them with ~elfeed-protocol~ via Fever API.
 #+name: rss
