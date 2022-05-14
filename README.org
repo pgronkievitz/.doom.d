@@ -384,6 +384,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
 #+name: orgconf
 #+begin_src elisp :noweb yes
 (setq org-directory "~/Documents/notes/")
+(setq org-plantuml-jar-path "~/.local/share/plantuml.jar")
 (use-package! screenshot)
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
