@@ -27,7 +27,7 @@ Vertico & Company is best of its kind match for me, but I can't wait for Cape im
 :completion
     (company
     +childframe)
-    (vertico +icons)
+    (vertico +childframe +icons)
 #+end_src
 ** Doom features
 Just basic packages for helper functions, dashboard and preventing me from leaving.
