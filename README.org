@@ -434,6 +434,16 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 (map! :leader :desc "Create node without opening" "n r I" #'org-roam-node-insert-immediate)
+(defun my/preview-fetcher ()
+  (let* ((elem (org-element-context))
+         (parent (org-element-property :parent elem)))
+    ;; TODO: alt handling for non-paragraph elements
+    (string-trim-right (buffer-substring-no-properties
+                        (org-element-property :begin parent)
+                        (org-element-property :end parent)))))
+
+(after! org (setq org-roam-preview-function #'my/preview-fetcher))
+
 ;;; latex export
 (setq org-latex-default-packages-alist
       '(("AUTO" "inputenc" t ("pdflatex"))
