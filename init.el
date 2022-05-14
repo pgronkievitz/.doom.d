@@ -2,7 +2,7 @@
        :completion
            (company
            +childframe)
-           (vertico +icons)
+           (vertico +childframe +icons)
        :ui
            doom                ; what makes DOOM look the way it does
            doom-dashboard      ; a nifty splash screen for Emacs
@@ -69,21 +69,21 @@
        :os
            tty               ; improve the terminal Emacs experience
        :lang
-           beancount         ; mind the GAAP
+           (beancount +lsp)         ; mind the GAAP
            ;;(cc
            ;; +lsp)               ; C > C++ == 1
            ;;(csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
            data                ; config/data formats
            emacs-lisp          ; drown in parentheses
            (ess +lsp)               ; emacs speaks statistics
-           (go +lsp)         ; the hipster dialect
+           ;;(go +lsp)         ; the hipster dialect
            (json
            +lsp)              ; At least it ain't XML
            ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
            (latex
            +latexmk
            +cdlatex)           ; writing papers in Emacs has never been so fun
-           (lua +lsp)               ; one-based indices? one-based indices
+           (lua +lsp +fennel)               ; one-based indices? one-based indices
            (markdown)
            nix                 ; I hereby declare "nix geht mehr!"
            (org
@@ -93,10 +93,13 @@
            +pomodoro
            +pretty
            +hugo
+           +present
            +roam2)              ; organize your plain life in plain text
            ;;plantuml            ; diagrams for confusing people more
            (python
            +lsp
+           +conda
+           +poetry
            +pyright)             ; beautiful is better than ugly
            rest              ; Emacs as a REST client
            ;;rst               ; ReST in peace

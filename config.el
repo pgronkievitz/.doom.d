@@ -58,6 +58,7 @@
                              (float 60))
                           calendar-daylight-time-zone-name)))))
 (setq org-directory "~/Documents/notes/")
+(setq org-plantuml-jar-path "~/.local/share/plantuml.jar")
 (use-package! screenshot)
 (use-package! org-pretty-table
   :commands (org-pretty-table-mode global-org-pretty-table-mode))
@@ -71,8 +72,6 @@
 (setq display-line-numbers-type 'relative)
 (setq org-hidden-keywords '(title))
 (setq org-startup-indented t
-      org-superstar-headline-bullets-list '("◉" "◈" "○" "▷")
-      org-superstar-special-todo-items t
       org-ellipsis "  "
       org-pretty-entities t
       org-hide-emphasis-markers t
@@ -88,6 +87,7 @@
 
 (use-package! websocket
   :after org-roam)
+(after! org-roam-mode-hook (require 'org-expor))
 (use-package! org-roam-ui
   :after org
   :config
@@ -109,6 +109,16 @@
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 (map! :leader :desc "Create node without opening" "n r I" #'org-roam-node-insert-immediate)
+(defun my/preview-fetcher ()
+  (let* ((elem (org-element-context))
+         (parent (org-element-property :parent elem)))
+    ;; TODO: alt handling for non-paragraph elements
+    (string-trim-right (buffer-substring-no-properties
+                        (org-element-property :begin parent)
+                        (org-element-property :end parent)))))
+
+(after! org (setq org-roam-preview-function #'my/preview-fetcher))
+
 ;;; latex export
 (setq org-latex-default-packages-alist
       '(("AUTO" "inputenc" t ("pdflatex"))
@@ -121,6 +131,7 @@
         ("" "amsmath" t)
         ("" "amssymb" t)
         ("" "amsthm" t)
+        ("" "akkmathset" t)
         ("" "capt-of" nil)
         ("" "listings")
         ("" "color")
@@ -131,17 +142,10 @@
 
 
 ;;; bibliography
-(defvar my/bibs '("~/Documents/biblio.bib"))
-(use-package citar-org
-  :no-require
-  :bind ; optional
-  (:map org-mode-map
-        ("C-c b" . #'org-cite-insert)) ; Also bound to C-c C-x C-@
-  :custom
-  (org-cite-global-bibliography my/bibs)
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar))
+(defvar my/bibs '("~/Documents/notes/bibliography.bib"))
+(setq org-cite-global-bibliography my/bibs)
+(setq citar-bibliography my/bibs)
+(setq org-cite-csl-styles-dir "~/Zotero/styles")
 ;;; latexmk export
 (setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 ;;; orgmode misc
@@ -173,22 +177,54 @@
                     "Olog" "O(\\log n)"
                     "Olon" "O(n \\log n)"
                     "ooo" "\\infty"
-                    "RR" "\\mathbb{R}"
-                    "ZZ" "\\mathbb{Z}"
-                    "NN" "\\mathbb{N}"
+                    ;; "RR" "\\mathbb{R}"
+                    ;; "ZZ" "\\mathbb{Z}"
+                    ;; "NN" "\\mathbb{N}"
                     "cc" "\\subset"
+                    "c=" "\\subseteq"
                     ;; bind to functions!
                     "Sum" (lambda () (interactive)
                             (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
+(setq org-log-done 'time)
+(defun roam-sitemap (title list)
+  (concat "#+OPTIONS: ^:nil author:nil html-postamble:nil\n"
+          "#+SETUPFILE: ./simple_inline.theme\n"
+          "#+TITLE: " title "\n\n"
+          (org-list-to-org list) "\nfile:sitemap.svg"))
 
+(setq my-publish-time 0)   ; see the next section for context
+(defun roam-publication-wrapper (plist filename pubdir)
+  (org-roam-graph)
+  (org-html-publish-to-html plist filename pubdir)
+  (setq my-publish-time (cadr (current-time))))
+(defun jnf/force-org-rebuild-cache ()
+  "Rebuild the `org-mode' and `org-roam' cache."
+  (interactive)
+  (org-id-update-id-locations)
+  ;; Note: you may need `org-roam-db-clear-all'
+  ;; followed by `org-roam-db-sync'
+  (org-roam-db-sync)
+  (org-roam-update-org-id-locations))
+
+(setq org-publish-project-alist
+  '(("roam"
+     :base-directory "~/Documents/notes/roam"
+     :auto-sitemap t
+     :sitemap-function roam-sitemap
+     :sitemap-title "Roam notes"
+     :publishing-function roam-publication-wrapper
+     :publishing-directory "~/roam-export"
+     :section-number nil
+     :table-of-contents nil
+     :style "<link rel=\"stylesheet\" href=\"../other/mystyle.cs\" type=\"text/css\">")))
 ;;; agenda
 ;;;;;;;;;;;;
 ;; AGENDA ;;
 ;;;;;;;;;;;;
 
-(setq org-lowest-priority ?E)
+(setq org-lowest-priority ?C)
+(add-to-list 'org-modules 'ol-habit)
 
-(use-package! pretty-agenda)
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
 (after! org-agenda
@@ -412,18 +448,18 @@
                  :template ("* TODO %?"
                             " %a")
                  :children (
-("Koło" :keys "k" :icon ("university" :set "faicon" :color "magenta") :headline "Koło")
-("Autoprezentacja i wystąpienia publiczne" :keys "a" :icon ("university" :set "faicon" :color "magenta") :headline "Autoprezentacja i wystąpienia publiczne")
-("Ekonometria" :keys "e" :icon ("university" :set "faicon" :color "magenta") :headline "Ekonometria")
-("Modelowanie danych" :keys "M" :icon ("university" :set "faicon" :color "magenta") :headline "Modelowanie danych")
-("Nowoczesne metody uczenia maszynowego" :keys "m" :icon ("university" :set "faicon" :color "magenta") :headline "Nowoczesne metody uczenia maszynowego")
-("Procesy stochastyczne" :keys "s" :icon ("university" :set "faicon" :color "magenta") :headline "Procesy stochastyczne")
-("Rozwój kompetencji biznesowych" :keys "r" :icon ("university" :set "faicon" :color "magenta") :headline "Rozwój kompetencji biznesowych")
-("Usługi sieciowe w biznesie" :keys "S" :icon ("university" :set "faicon" :color "magenta") :headline "Usługi sieciowe w biznesie")
-("Wielowymiarowa analiza danych" :keys "d" :icon ("university" :set "faicon" :color "magenta") :headline "Wielowymiarowa analiza danych")
-("Wnioskowanie w warunkach niepewności" :keys "n" :icon ("university" :set "faicon" :color "magenta") :headline "Wnioskowanie w warunkach niepewności")
-("Teoria gier" :keys "g" :icon ("university" :set "faicon" :color "magenta") :headline "Teoria gier")
-("J. angielski dla inżynierów" :keys "e" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")                ))
+                            ("Koło" :keys "k" :icon ("university" :set "faicon" :color "magenta") :headline "Koło")
+                            ("Autoprezentacja i wystąpienia publiczne" :keys "a" :icon ("university" :set "faicon" :color "magenta") :headline "Autoprezentacja i wystąpienia publiczne")
+                            ("Ekonometria" :keys "e" :icon ("university" :set "faicon" :color "magenta") :headline "Ekonometria")
+                            ("Modelowanie danych" :keys "M" :icon ("university" :set "faicon" :color "magenta") :headline "Modelowanie danych")
+                            ("Nowoczesne metody uczenia maszynowego" :keys "m" :icon ("university" :set "faicon" :color "magenta") :headline "Nowoczesne metody uczenia maszynowego")
+                            ("Procesy stochastyczne" :keys "s" :icon ("university" :set "faicon" :color "magenta") :headline "Procesy stochastyczne")
+                            ("Rozwój kompetencji biznesowych" :keys "r" :icon ("university" :set "faicon" :color "magenta") :headline "Rozwój kompetencji biznesowych")
+                            ("Usługi sieciowe w biznesie" :keys "S" :icon ("university" :set "faicon" :color "magenta") :headline "Usługi sieciowe w biznesie")
+                            ("Wielowymiarowa analiza danych" :keys "d" :icon ("university" :set "faicon" :color "magenta") :headline "Wielowymiarowa analiza danych")
+                            ("Wnioskowanie w warunkach niepewności" :keys "n" :icon ("university" :set "faicon" :color "magenta") :headline "Wnioskowanie w warunkach niepewności")
+                            ("Teoria gier" :keys "g" :icon ("university" :set "faicon" :color "magenta") :headline "Teoria gier")
+                            ("J. angielski dla inżynierów" :keys "E" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")                ))
                                  ("Project" :keys "p"
                    :icon ("repo" :set "octicon" :color "silver")
                    :prepend t
@@ -487,6 +523,7 @@
       langtool-default-language nil)
 ;;; projectile
 (setq projectile-project-search-path '(("~/Projects" . 2)))
+(set-file-template! 'python-mode :ignore t)
 ;;; ess config
 (setq ess-R-font-lock-keywords
       '((ess-R-fl-keyword:keywords . t)
@@ -547,7 +584,6 @@
 
 ;; ask for account when composing mail
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
-
 (use-package! elpher)
 (use-package! elfeed-protocol
   :after elfeed
@@ -555,7 +591,7 @@
   :custom
   (elfeed-use-curl t)
   (elfeed-set-timeout 36000)
-  (elfeed-feeds (list
-                 (list "fever+https://pg@rss.lab.home"
-                       :api-url "https://rss.lab.home/api/fever.php"
-                       :use-authinfo t))))
+  (elfeed-feeds '(("fever+https://pg@rss.lab.home"
+                    :api-url "https://rss.lab.home/api/fever.php"
+                    :use-authinfo t
+                    :autotags '(("https://forum.yeswas.pl/posts.rss" forums))))))
