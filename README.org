@@ -454,17 +454,10 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
 
 
 ;;; bibliography
-(defvar my/bibs '("~/Documents/biblio.bib"))
-(use-package citar-org
-  :no-require
-  :bind ; optional
-  (:map org-mode-map
-        ("C-c b" . #'org-cite-insert)) ; Also bound to C-c C-x C-@
-  :custom
-  (org-cite-global-bibliography my/bibs)
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar))
+(defvar my/bibs '("~/Documents/notes/bibliography.bib"))
+(setq org-cite-global-bibliography my/bibs)
+(setq citar-bibliography my/bibs)
+(setq org-cite-csl-styles-dir "~/Zotero/styles")
 ;;; latexmk export
 (setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 ;;; orgmode misc
