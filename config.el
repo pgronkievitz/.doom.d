@@ -2,8 +2,8 @@
 (if (eq (system-name) "themis")
     (setq user-mail-address "patryk.gronkiewicz@omniscopy.com")
     (setq user-mail-address "patryk@gronkiewicz.dev"))
-(setq doom-font (font-spec :family "VictorMono Nerd Font" :size 14)
-      doom-big-font (font-spec :family "VictorMono Nerd Font" :size 28)
+(setq doom-font (font-spec :family "BlexMono Nerd Font" :size 14)
+      doom-big-font (font-spec :family "BlexMono Nerd Font" :size 28)
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 14)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 14))
 (custom-set-faces!
@@ -22,6 +22,10 @@
 (setq doom-theme 'stimmung-themes-light)
 (setq stimmung-themes-light-highlight-color "SkyBlue")
 (setq fancy-splash-image "~/Pictures/emacs.svg")
+(setq display-line-numbers-type 'relative)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-loaded)
 (setq calendar-week-start-day 1
       calendar-date-style 'iso
       calendar-christian-all-holidays-flag t)
@@ -37,6 +41,7 @@
    (holiday-fixed 11 11 "Independence Day")
    (holiday-fixed 5 1 "Labor Day")
    (holiday-easter-etc)
+   (holiday-fixed 12 25 "Christmas Eve")
    (holiday-fixed 12 25 "Christmas")
    (if calendar-christian-all-holidays-flag
        (append
@@ -59,17 +64,38 @@
                           calendar-daylight-time-zone-name)))))
 (setq org-directory "~/Documents/notes/")
 (setq org-plantuml-jar-path "~/.local/share/plantuml.jar")
-(use-package! screenshot)
-(use-package! org-pretty-table
-  :commands (org-pretty-table-mode global-org-pretty-table-mode))
-(after! org-mode (global-org-pretty-table-mode))
+(after! ox-hugo
+  (setq org-blackfriday--org-element-string '((src-block . "Kod") (table . "Tabela") (figure . "Rysunek"))))
+
+;;; latex export
+(after! 'ox-latex
+        (setq org-latex-default-packages-alist
+        '(("AUTO" "inputenc" t ("pdflatex"))
+                ("T1" "fontenc" t ("pdflatex"))
+                ("" "graphicx" t)
+                ("" "longtable" nil)
+                ("" "wrapfig" nil)
+                ("" "rotating" nil)
+                ("normalem" "ulem" t)
+                ("" "amsmath" t)
+                ("" "amssymb" t)
+                ("" "amsthm" t)
+                ("" "akkmathset" t)
+                ("" "capt-of" nil)
+                ("" "listings")
+                ("" "color")
+                ("hidelinks" "hyperref" nil)
+                ("AUTO" "babel" t ("pdflatex"))
+                ("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+        org-latex-listings t))
+(setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq pdf-view-midnight-colors '("#ffffff" . "#1f1f1f"))
 (use-package! org-ol-tree
   :commands org-ol-tree)
 (map! :map org-mode-map
       :after org
       :localleader
       :desc "Outline" "O" #'org-ol-tree)
-(setq display-line-numbers-type 'relative)
 (setq org-hidden-keywords '(title))
 (setq org-startup-indented t
       org-ellipsis "  "
@@ -79,12 +105,13 @@
       org-fontify-whole-heading-line t
       org-fontify-done-headline t
       org-fontify-quote-and-verse-blocks t)
-(setq
- org-pomodoro-keep-killed-pomodoro-time t)
-
-(after! ox-hugo
-  (setq org-blackfriday--org-element-string '((src-block . "Kod") (table . "Tabela") (figure . "Rysunek"))))
-
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
+(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+(add-hook! 'org-mode-hook #'org-fragtog-mode)
+(add-hook! 'org-mode-hook #'org-appear-mode)
+(after! org
+ (setq org-pomodoro-keep-killed-pomodoro-time t))
+(setq org-log-done 'time)
 (use-package! websocket
   :after org-roam)
 (after! org-roam-mode-hook (require 'org-export))
@@ -95,10 +122,11 @@
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
-(map! (:map org-mode-map
-       :localleader
-       :prefix ("m" . "org-roam")
-       :desc "Open ORUI" :n "G" #'org-roam-ui-open))
+(after! org
+    (map! (:map org-mode-map
+        :localleader
+        :prefix ("m" . "org-roam")
+        :desc "Open ORUI" :n "G" #'org-roam-ui-open)))
 ;;; org-roam
 
 ;;;; create notes without entering
@@ -108,7 +136,7 @@
         (org-roam-capture-templates (list (append (car org-roam-capture-templates)
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
-(map! :leader :desc "Create node without opening" "n r I" #'org-roam-node-insert-immediate)
+(after! org-roam (map! :leader :desc "Create node without opening" "n r I" #'org-roam-node-insert-immediate))
 (defun my/preview-fetcher ()
   (let* ((elem (org-element-context))
          (parent (org-element-property :parent elem)))
@@ -118,71 +146,43 @@
                         (org-element-property :end parent)))))
 
 (after! org (setq org-roam-preview-function #'my/preview-fetcher))
-
-;;; latex export
-(setq org-latex-default-packages-alist
-      '(("AUTO" "inputenc" t ("pdflatex"))
-        ("T1" "fontenc" t ("pdflatex"))
-        ("" "graphicx" t)
-        ("" "longtable" nil)
-        ("" "wrapfig" nil)
-        ("" "rotating" nil)
-        ("normalem" "ulem" t)
-        ("" "amsmath" t)
-        ("" "amssymb" t)
-        ("" "amsthm" t)
-        ("" "akkmathset" t)
-        ("" "capt-of" nil)
-        ("" "listings")
-        ("" "color")
-        ("hidelinks" "hyperref" nil)
-        ("AUTO" "babel" t ("pdflatex"))
-        ("AUTO" "polyglossia" t ("xelatex" "lualatex")))
-      org-latex-listings t)
-
-
 ;;; bibliography
 (defvar my/bibs '("~/Documents/notes/bibliography.bib"))
 (setq org-cite-global-bibliography my/bibs)
 (setq citar-bibliography my/bibs)
 (setq org-cite-csl-styles-dir "~/Zotero/styles")
-;;; latexmk export
-(setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
-;;; orgmode misc
-(use-package! org-alert)
-(use-package! org-ol-tree)
-(use-package! org-fragtog)
+(use-package! org-fragtog :defer t)
 (use-package laas
   :hook ((LaTeX-mode org-mode) . laas-mode)
   :config ; do whatever here
   (aas-set-snippets 'laas-mode
-                    ;; set condition!
-                    :cond #'texmathp ; expand only while in math
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    ;; bind to functions!
-                    "Sum" (lambda () (interactive)
-                            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
-                    ;; add accent snippets
-                    :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
-                    "zz" (lambda () (interactive) (laas-wrap-previous-object "mathcal"))
-                    :cond #'laas-org-mathp
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    "ooo" "\\infty"
-                    "cc" "\\subset"
-                    "c=" "\\subseteq"
-                    ;; bind to functions!
-                    "Sum" (lambda () (interactive)
-                            (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
-(setq org-log-done 'time)
+    ;; set condition!
+    :cond #'texmathp ; expand only while in math
+    "supp" "\\supp"
+    "On" "O(n)"
+    "O1" "O(1)"
+    "Olog" "O(\\log n)"
+    "Olon" "O(n \\log n)"
+    ;; bind to functions!
+    "Sum" (lambda () (interactive)
+            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
+    ;; add accent snippets
+    :cond #'laas-object-on-left-condition
+    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
+    "zz" (lambda () (interactive) (laas-wrap-previous-object "mathcal"))
+    :cond #'laas-org-mathp
+    "supp" "\\supp"
+    "On" "O(n)"
+    "O1" "O(1)"
+    "Olog" "O(\\log n)"
+    "Olon" "O(n \\log n)"
+    "ooo" "\\infty"
+    "cc" "\\subset"
+    "c=" "\\subseteq"
+    ;; bind to functions!
+    "Sum" (lambda () (interactive)
+            (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
+(add-hook! 'org-mode-hook #'laas-mode)
 (defun roam-sitemap (title list)
   (concat "#+OPTIONS: ^:nil author:nil html-postamble:nil\n"
           "#+SETUPFILE: ./simple_inline.theme\n"
@@ -204,23 +204,18 @@
   (org-roam-update-org-id-locations))
 
 (setq org-publish-project-alist
-  '(("roam"
-     :base-directory "~/Documents/notes/roam"
-     :auto-sitemap t
-     :sitemap-function roam-sitemap
-     :sitemap-title "Roam notes"
-     :publishing-function roam-publication-wrapper
-     :publishing-directory "~/roam-export"
-     :section-number nil
-     :table-of-contents nil
-     :style "<link rel=\"stylesheet\" href=\"../other/mystyle.cs\" type=\"text/css\">")))
-;;; agenda
-;;;;;;;;;;;;
-;; AGENDA ;;
-;;;;;;;;;;;;
-
+      '(("roam"
+         :base-directory "~/Documents/notes/roam"
+         :auto-sitemap t
+         :sitemap-function roam-sitemap
+         :sitemap-title "Roam notes"
+         :publishing-function roam-publication-wrapper
+         :publishing-directory "~/roam-export"
+         :section-number nil
+         :table-of-contents nil
+         :style "<link rel=\"stylesheet\" href=\"../other/mystyle.cs\" type=\"text/css\">")))
 (setq org-lowest-priority ?C)
-(add-to-list 'org-modules 'ol-habit)
+(add-to-list 'org-modules 'ol-habit 'org-secretary)
 
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
@@ -456,7 +451,8 @@
                             ("Wielowymiarowa analiza danych" :keys "d" :icon ("university" :set "faicon" :color "magenta") :headline "Wielowymiarowa analiza danych")
                             ("Wnioskowanie w warunkach niepewności" :keys "n" :icon ("university" :set "faicon" :color "magenta") :headline "Wnioskowanie w warunkach niepewności")
                             ("Teoria gier" :keys "g" :icon ("university" :set "faicon" :color "magenta") :headline "Teoria gier")
-                            ("J. angielski dla inżynierów" :keys "E" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")                ))
+                            ("J. angielski dla inżynierów" :keys "E" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")
+                            ("Projekt inżynierski" :keys "p" :icon ("university" :set "faicon" :color "magenta") :headline "Projekt inżynierski")                ))
                                  ("Project" :keys "p"
                    :icon ("repo" :set "octicon" :color "silver")
                    :prepend t
@@ -504,11 +500,6 @@
                                :heading "Unreleased"
                                :file +org-capture-central-project-changelog-file)))
                 ))))
-(add-hook! 'org-mode-hook #'org-pretty-table-mode)
-(add-hook! 'org-mode-hook #'+org-pretty-mode)
-(add-hook! 'org-mode-hook #'hl-line-mode)
-(add-hook! 'org-mode-hook #'mixed-pitch-mode)
-(add-hook! 'org-mode-hook #'laas-mode)
 (use-package! guess-language
   :config
   :init (add-hook 'text-mode-hook #'guess-language-mode)
@@ -521,6 +512,8 @@
 ;;; projectile
 (setq projectile-project-search-path '(("~/Projects" . 2)))
 (set-file-template! 'python-mode :ignore t)
+(after! flycheck
+  (setq flycheck-idle-change-delay 0.1))
 ;;; ess config
 (setq ess-R-font-lock-keywords
       '((ess-R-fl-keyword:keywords . t)
@@ -611,4 +604,9 @@
                                 ("https://kill-the-newsletter.com/feeds/pxqkq99oqtx7asnl.xml" blog newsletter finances selfhelp)
                                 ("https://www.daemonology.net/hn-daily/index.rss" tech aggregate)
                                 ("https://kill-the-newsletter.com/feeds/1h3xndzxheqi61pk.xml" tech aggregate newsletter)
+                                ("https://lobste.rs/t/compsci,networking,programming,distributed,ai,osdev,hardware,math,education,python,lisp,go,scala,erlang,rust,haskell,clojure,openbsd,linux,unix,android,merkle-trees,email,security,scaling,privacy,devops,reversing,virtualization,api,testing,debugging,performance,vim,databases,emacs,vcs,compilers,systemd,nix.rss" aggregate tech programming devops)
                                 ("https://www.eff.org/rss/updates.xml" blog privacy))))))
+(setq browse-url-browser-function 'eww-browse-url)
+(setq +lookup-open-url-fn #'eww)
+(evil-snipe-mode +1)
+(evil-snipe-override-mode +1)
