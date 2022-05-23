@@ -304,8 +304,8 @@ I want to use different email address depending on what system I'm using. ~patry
 Fonts on my system always got extra bit of love.
 #+name: fonts
 #+begin_src elisp :noweb yes
-(setq doom-font (font-spec :family "VictorMono Nerd Font" :size 14)
-      doom-big-font (font-spec :family "VictorMono Nerd Font" :size 28)
+(setq doom-font (font-spec :family "BlexMono Nerd Font" :size 14)
+      doom-big-font (font-spec :family "BlexMono Nerd Font" :size 28)
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 14)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 14))
 <<orgfonts>>
