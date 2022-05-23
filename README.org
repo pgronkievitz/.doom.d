@@ -962,7 +962,10 @@ My beloved RSS feeds are stored in my custom FreshRSS instance. I access them wi
                                 ("https://kill-the-newsletter.com/feeds/pxqkq99oqtx7asnl.xml" blog newsletter finances selfhelp)
                                 ("https://www.daemonology.net/hn-daily/index.rss" tech aggregate)
                                 ("https://kill-the-newsletter.com/feeds/1h3xndzxheqi61pk.xml" tech aggregate newsletter)
+                                ("https://lobste.rs/t/compsci,networking,programming,distributed,ai,osdev,hardware,math,education,python,lisp,go,scala,erlang,rust,haskell,clojure,openbsd,linux,unix,android,merkle-trees,email,security,scaling,privacy,devops,reversing,virtualization,api,testing,debugging,performance,vim,databases,emacs,vcs,compilers,systemd,nix.rss" aggregate tech programming devops)
                                 ("https://www.eff.org/rss/updates.xml" blog privacy))))))
+(setq browse-url-browser-function 'eww-browse-url)
+(setq +lookup-open-url-fn #'eww)
 #+end_src
 Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher to not even leave Emacs. Ever.
 #+name: protoconf
