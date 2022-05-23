@@ -1004,6 +1004,13 @@ Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher
 #+begin_src elisp
 (use-package! elpher)
 #+end_src
+
+#+name: evil
+#+begin_src elisp
+(evil-snipe-mode +1)
+(evil-snipe-override-mode +1)
+#+end_src
+** base :noexport:
 #+begin_src elisp :tangle config.el :noweb yes
 <<identity>>
 <<fonts>>
@@ -1016,6 +1023,7 @@ Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher
 <<emailconf>>
 <<protoconf>>
 <<rss>>
+<<evil>>
 #+end_src
 
 * Host specific configuration
