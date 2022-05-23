@@ -379,21 +379,23 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
                              (float 60))
                           calendar-daylight-time-zone-name)))))
 #+end_src
-#+name: orgconf
-#+begin_src elisp :noweb yes
-(setq org-directory "~/Documents/notes/")
-(setq org-plantuml-jar-path "~/.local/share/plantuml.jar")
-(use-package! screenshot)
-(use-package! org-pretty-table
-  :commands (org-pretty-table-mode global-org-pretty-table-mode))
-(after! org-mode (global-org-pretty-table-mode))
+
+** Org-mode
+#+name: outline
+#+begin_src elisp
 (use-package! org-ol-tree
   :commands org-ol-tree)
 (map! :map org-mode-map
       :after org
       :localleader
       :desc "Outline" "O" #'org-ol-tree)
-(setq display-line-numbers-type 'relative)
+#+end_src
+#+name: notes
+#+begin_src elisp
+(setq org-directory "~/Documents/notes/")
+#+end_src
+#+name: org-theming
+#+begin_src elisp
 (setq org-hidden-keywords '(title))
 (setq org-startup-indented t
       org-ellipsis "  "
@@ -403,12 +405,49 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
       org-fontify-whole-heading-line t
       org-fontify-done-headline t
       org-fontify-quote-and-verse-blocks t)
-(setq
- org-pomodoro-keep-killed-pomodoro-time t)
-
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
+(add-hook! 'org-mode-hook #'mixed-pitch-mode)
+(add-hook! 'org-mode-hook #'org-fragtog-mode)
+(add-hook! 'org-mode-hook #'org-appear-mode)
+#+end_src
+#+name: exporting
+#+begin_src elisp
+(setq org-plantuml-jar-path "~/.local/share/plantuml.jar")
 (after! ox-hugo
   (setq org-blackfriday--org-element-string '((src-block . "Kod") (table . "Tabela") (figure . "Rysunek"))))
 
+;;; latex export
+(after! 'ox-latex
+        (setq org-latex-default-packages-alist
+        '(("AUTO" "inputenc" t ("pdflatex"))
+                ("T1" "fontenc" t ("pdflatex"))
+                ("" "graphicx" t)
+                ("" "longtable" nil)
+                ("" "wrapfig" nil)
+                ("" "rotating" nil)
+                ("normalem" "ulem" t)
+                ("" "amsmath" t)
+                ("" "amssymb" t)
+                ("" "amsthm" t)
+                ("" "akkmathset" t)
+                ("" "capt-of" nil)
+                ("" "listings")
+                ("" "color")
+                ("hidelinks" "hyperref" nil)
+                ("AUTO" "babel" t ("pdflatex"))
+                ("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+        org-latex-listings t))
+(setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq pdf-view-midnight-colors '("#ffffff" . "#1f1f1f"))
+#+end_src
+#+name: time-tracking
+#+begin_src elisp
+(after! org
+ (setq org-pomodoro-keep-killed-pomodoro-time t))
+(setq org-log-done 'time)
+#+end_src
+#+name: org-roam
+#+begin_src elisp
 (use-package! websocket
   :after org-roam)
 (after! org-roam-mode-hook (require 'org-export))
@@ -419,10 +458,11 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
-(map! (:map org-mode-map
-       :localleader
-       :prefix ("m" . "org-roam")
-       :desc "Open ORUI" :n "G" #'org-roam-ui-open))
+(after! org
+    (map! (:map org-mode-map
+        :localleader
+        :prefix ("m" . "org-roam")
+        :desc "Open ORUI" :n "G" #'org-roam-ui-open)))
 ;;; org-roam
 
 ;;;; create notes without entering
@@ -432,7 +472,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
         (org-roam-capture-templates (list (append (car org-roam-capture-templates)
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
-(map! :leader :desc "Create node without opening" "n r I" #'org-roam-node-insert-immediate)
+(after! org-roam (map! :leader :desc "Create node without opening" "n r I" #'org-roam-node-insert-immediate))
 (defun my/preview-fetcher ()
   (let* ((elem (org-element-context))
          (parent (org-element-property :parent elem)))
@@ -442,71 +482,17 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
                         (org-element-property :end parent)))))
 
 (after! org (setq org-roam-preview-function #'my/preview-fetcher))
-
-;;; latex export
-(setq org-latex-default-packages-alist
-      '(("AUTO" "inputenc" t ("pdflatex"))
-        ("T1" "fontenc" t ("pdflatex"))
-        ("" "graphicx" t)
-        ("" "longtable" nil)
-        ("" "wrapfig" nil)
-        ("" "rotating" nil)
-        ("normalem" "ulem" t)
-        ("" "amsmath" t)
-        ("" "amssymb" t)
-        ("" "amsthm" t)
-        ("" "akkmathset" t)
-        ("" "capt-of" nil)
-        ("" "listings")
-        ("" "color")
-        ("hidelinks" "hyperref" nil)
-        ("AUTO" "babel" t ("pdflatex"))
-        ("AUTO" "polyglossia" t ("xelatex" "lualatex")))
-      org-latex-listings t)
-
-
+#+end_src
+#+name: bibliography
+#+begin_src elisp
 ;;; bibliography
 (defvar my/bibs '("~/Documents/notes/bibliography.bib"))
 (setq org-cite-global-bibliography my/bibs)
 (setq citar-bibliography my/bibs)
 (setq org-cite-csl-styles-dir "~/Zotero/styles")
-;;; latexmk export
-(setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
-;;; orgmode misc
-(use-package! org-alert)
-(use-package! org-ol-tree)
-(use-package! org-fragtog)
-(use-package laas
-  :hook ((LaTeX-mode org-mode) . laas-mode)
-  :config ; do whatever here
-  (aas-set-snippets 'laas-mode
-                    ;; set condition!
-                    :cond #'texmathp ; expand only while in math
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    ;; bind to functions!
-                    "Sum" (lambda () (interactive)
-                            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
-                    ;; add accent snippets
-                    :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
-                    "zz" (lambda () (interactive) (laas-wrap-previous-object "mathcal"))
-                    :cond #'laas-org-mathp
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    "ooo" "\\infty"
-                    "cc" "\\subset"
-                    "c=" "\\subseteq"
-                    ;; bind to functions!
-                    "Sum" (lambda () (interactive)
-                            (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
-(setq org-log-done 'time)
+#+end_src
+#+name: publishing
+#+begin_src elisp
 (defun roam-sitemap (title list)
   (concat "#+OPTIONS: ^:nil author:nil html-postamble:nil\n"
           "#+SETUPFILE: ./simple_inline.theme\n"
@@ -528,23 +514,56 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
   (org-roam-update-org-id-locations))
 
 (setq org-publish-project-alist
-  '(("roam"
-     :base-directory "~/Documents/notes/roam"
-     :auto-sitemap t
-     :sitemap-function roam-sitemap
-     :sitemap-title "Roam notes"
-     :publishing-function roam-publication-wrapper
-     :publishing-directory "~/roam-export"
-     :section-number nil
-     :table-of-contents nil
-     :style "<link rel=\"stylesheet\" href=\"../other/mystyle.cs\" type=\"text/css\">")))
-;;; agenda
-;;;;;;;;;;;;
-;; AGENDA ;;
-;;;;;;;;;;;;
-
+      '(("roam"
+         :base-directory "~/Documents/notes/roam"
+         :auto-sitemap t
+         :sitemap-function roam-sitemap
+         :sitemap-title "Roam notes"
+         :publishing-function roam-publication-wrapper
+         :publishing-directory "~/roam-export"
+         :section-number nil
+         :table-of-contents nil
+         :style "<link rel=\"stylesheet\" href=\"../other/mystyle.cs\" type=\"text/css\">")))
+#+end_src
+#+name: maths
+#+begin_src elisp
+(use-package! org-fragtog :defer t)
+(use-package laas
+  :hook ((LaTeX-mode org-mode) . laas-mode)
+  :config ; do whatever here
+  (aas-set-snippets 'laas-mode
+    ;; set condition!
+    :cond #'texmathp ; expand only while in math
+    "supp" "\\supp"
+    "On" "O(n)"
+    "O1" "O(1)"
+    "Olog" "O(\\log n)"
+    "Olon" "O(n \\log n)"
+    ;; bind to functions!
+    "Sum" (lambda () (interactive)
+            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
+    ;; add accent snippets
+    :cond #'laas-object-on-left-condition
+    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))
+    "zz" (lambda () (interactive) (laas-wrap-previous-object "mathcal"))
+    :cond #'laas-org-mathp
+    "supp" "\\supp"
+    "On" "O(n)"
+    "O1" "O(1)"
+    "Olog" "O(\\log n)"
+    "Olon" "O(n \\log n)"
+    "ooo" "\\infty"
+    "cc" "\\subset"
+    "c=" "\\subseteq"
+    ;; bind to functions!
+    "Sum" (lambda () (interactive)
+            (yas-expand-snippet "\\sum_{$1^{$2} $0"))))
+(add-hook! 'org-mode-hook #'laas-mode)
+#+end_src
+#+name: agenda
+#+begin_src elisp
 (setq org-lowest-priority ?C)
-(add-to-list 'org-modules 'ol-habit)
+(add-to-list 'org-modules 'ol-habit 'org-secretary)
 
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
@@ -635,13 +654,22 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 (setq org-super-agenda-header-map (make-sparse-keymap))
-<<capture-templates>>
-(add-hook! 'org-mode-hook #'org-pretty-table-mode)
-(add-hook! 'org-mode-hook #'+org-pretty-mode)
-(add-hook! 'org-mode-hook #'hl-line-mode)
-(add-hook! 'org-mode-hook #'mixed-pitch-mode)
-(add-hook! 'org-mode-hook #'laas-mode)
 #+end_src
+#+name: orgconf
+#+begin_src elisp :noweb yes
+<<notes>>
+<<exporting>>
+<<outline>>
+<<org-theming>>
+<<time-tracking>>
+<<org-roam>>
+<<bibliography>>
+<<maths>>
+<<publishing>>
+<<agenda>>
+<<capture-templates>>
+#+end_src
+
 #+name: prettify-capture
 #+begin_src elisp
 (defun org-capture-select-template-prettier (&optional keys)
@@ -793,7 +821,8 @@ is selected, only the bare key is returned."
                             ("Wielowymiarowa analiza danych" :keys "d" :icon ("university" :set "faicon" :color "magenta") :headline "Wielowymiarowa analiza danych")
                             ("Wnioskowanie w warunkach niepewności" :keys "n" :icon ("university" :set "faicon" :color "magenta") :headline "Wnioskowanie w warunkach niepewności")
                             ("Teoria gier" :keys "g" :icon ("university" :set "faicon" :color "magenta") :headline "Teoria gier")
-                            ("J. angielski dla inżynierów" :keys "E" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")                ))
+                            ("J. angielski dla inżynierów" :keys "E" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")
+                            ("Projekt inżynierski" :keys "p" :icon ("university" :set "faicon" :color "magenta") :headline "Projekt inżynierski")                ))
                                  ("Project" :keys "p"
                    :icon ("repo" :set "octicon" :color "silver")
                    :prepend t
