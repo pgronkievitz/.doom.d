@@ -266,18 +266,13 @@ Yuo cen't bee rong
 #+name: orgpkgs
 #+begin_src elisp
 (package! org-super-agenda)
-(package! org-pretty-table :recipe (:host github :repo "Fuco1/org-pretty-table"))
 (package! org-fragtog)
 (package! org-appear :recipe (:host github :repo "awth13/org-appear"))
-(package! org-pretty-tags)
 (package! org-ol-tree :recipe (:host github :repo "Townk/org-ol-tree"))
 (package! laas :recipe (:host github :repo "tecosaur/LaTeX-auto-activating-snippets"))
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! websocket)
-(package! org-alert :recipe (:host github :repo "spegoraro/org-alert" :files ("*.el")))
-(package! org-notifications :recipe (:host github :repo "doppelc/org-notifications" :files ("*.el" "sounds")))
 (package! doct :recipe (:host github :repo "progfolio/doct"))
-(package! screenshot :recipe (:host github :repo "tecosaur/screenshot"))
 #+end_src
 ** Ye olde internet
 #+name: protopkgs
