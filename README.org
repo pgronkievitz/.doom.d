@@ -292,6 +292,7 @@ Yuo cen't bee rong
 (package! stimmung-themes :recipe (:host github :repo "motform/stimmung-themes"))
 #+end_src
 * Configuration
+** Identity
 I want to use different email address depending on what system I'm using. ~patryk@gronkiewicz.dev~ as my general-purpose email and ~patryk.gronkiewicz@omniscopy.com~ for work purposes.
 #+name: identity
 #+begin_src elisp
@@ -300,7 +301,7 @@ I want to use different email address depending on what system I'm using. ~patry
     (setq user-mail-address "patryk.gronkiewicz@omniscopy.com")
     (setq user-mail-address "patryk@gronkiewicz.dev"))
 #+end_src
-
+** Themes
 Fonts on my system always got extra bit of love.
 #+name: fonts
 #+begin_src elisp :noweb yes
@@ -326,7 +327,6 @@ I've changed styles of orgmode buffers /a bit/ to make them more pleasure to wor
   '(line-number :inherit 'fixed-pitch)
   '(org-code :inherit 'fixed-pitch))
 #+end_src
-
 Currently back to Nord. Also I'm a bit bored by default DOOM splash, so I've set my own.
 #+name: theming
 #+begin_src elisp
@@ -334,11 +334,12 @@ Currently back to Nord. Also I'm a bit bored by default DOOM splash, so I've set
 (setq doom-theme 'stimmung-themes-light)
 (setq stimmung-themes-light-highlight-color "SkyBlue")
 (setq fancy-splash-image "~/Pictures/emacs.svg")
+(setq display-line-numbers-type 'relative)
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-loaded)
 #+end_src
-
+** Calendar
 Calendar is not perfectly suited for me as some holiday are moved a bit and DST starts in a bit different time than in the US.
 #+name: calendar
 #+begin_src elisp
