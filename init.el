@@ -95,7 +95,7 @@
            +hugo
            +present
            +roam2)              ; organize your plain life in plain text
-           ;;plantuml            ; diagrams for confusing people more
+           plantuml            ; diagrams for confusing people more
            (python
            +lsp
            +conda
