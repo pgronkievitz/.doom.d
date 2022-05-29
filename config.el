@@ -63,9 +63,12 @@
                              (float 60))
                           calendar-daylight-time-zone-name)))))
 (setq org-directory "~/Documents/notes/")
-(setq org-plantuml-jar-path "~/.local/share/plantuml.jar")
+(setq org-plantuml-jar-path "~/.local/share/plantuml.jar"
+      plantuml-default-exec-mode 'jar)
 (after! ox-hugo
-  (setq org-blackfriday--org-element-string '((src-block . "Kod") (table . "Tabela") (figure . "Rysunek"))))
+  (setq org-blackfriday--org-element-string '((src-block . "Kod")
+                                              (table . "Tabela")
+                                              (figure . "Rysunek"))))
 
 ;;; latex export
 (setq org-latex-default-packages-alist
