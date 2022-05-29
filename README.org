@@ -356,6 +356,7 @@ Calendar is not perfectly suited for me as some holiday are moved a bit and DST 
    (holiday-fixed 5 3 "Constitution Day")
    (holiday-fixed 6 0 "Father's Day")
    (holiday-fixed 11 11 "Independence Day")
+   (holiday-fixed 11 1 "All Saints' Day")
    (holiday-fixed 5 1 "Labor Day")
    (holiday-easter-etc)
    (holiday-fixed 12 25 "Christmas Eve")
