@@ -1019,6 +1019,7 @@ My beloved RSS feeds are stored in my custom FreshRSS instance. I access them wi
                                 ("https://kill-the-newsletter.com/feeds/1h3xndzxheqi61pk.xml" tech aggregate newsletter)
                                 ("https://lobste.rs/t/compsci,networking,programming,distributed,ai,osdev,hardware,math,education,python,lisp,go,scala,erlang,rust,haskell,clojure,openbsd,linux,unix,android,merkle-trees,email,security,scaling,privacy,devops,reversing,virtualization,api,testing,debugging,performance,vim,databases,emacs,vcs,compilers,systemd,nix.rss" aggregate tech programming devops)
                                 ("https://www.eff.org/rss/updates.xml" blog privacy))))))
+(setq browse-url-firefox-program "librewolf")
 (setq browse-url-browser-function 'eww-browse-url)
 (setq +lookup-open-url-fn #'eww)
 #+end_src
