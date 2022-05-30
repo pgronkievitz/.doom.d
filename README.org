@@ -671,7 +671,10 @@ org-latex-listings t)
                            :tag ("Trivial" "Unimportant")
                            :todo ("SOMEDAY")
                            :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))
+        ("u" "Uczelnia"
+         ((tags-todo "@uczelnia&-kolo")
+          (tags-todo "kolo")))))
 (setq org-super-agenda-header-map (make-sparse-keymap))
 #+end_src
 #+name: orgconf
