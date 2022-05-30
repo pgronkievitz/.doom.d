@@ -39,6 +39,7 @@
    (holiday-fixed 5 3 "Constitution Day")
    (holiday-fixed 6 0 "Father's Day")
    (holiday-fixed 11 11 "Independence Day")
+   (holiday-fixed 11 1 "All Saints' Day")
    (holiday-fixed 5 1 "Labor Day")
    (holiday-easter-etc)
    (holiday-fixed 12 25 "Christmas Eve")
@@ -234,7 +235,8 @@ org-latex-listings t)
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
 (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WIP(w)" "INTR(i)" "|" "DONE(d)" "DELEGATED(D)" "KILL(k)")
-                          (sequence "PROJ(p)" "DONE(d)")))
+                          (sequence "PROJ(p)" "DONE(d)")
+                          (sequence "[ ]" "[-]" "[X]")))
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -308,7 +310,10 @@ org-latex-listings t)
                            :tag ("Trivial" "Unimportant")
                            :todo ("SOMEDAY")
                            :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))
+        ("u" "Uczelnia"
+         ((tags-todo "@uczelnia&-kolo")
+          (tags-todo "kolo")))))
 (setq org-super-agenda-header-map (make-sparse-keymap))
 (use-package! doct :commands doct)
 (after! org-capture
