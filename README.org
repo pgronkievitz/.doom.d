@@ -710,6 +710,7 @@ org-latex-minted-options '(("breaklines" "")
 <<publishing>>
 <<agenda>>
 <<capture-templates>>
+<<structure-templates>>
 #+end_src
 
 #+name: prettify-capture
@@ -913,6 +914,25 @@ is selected, only the bare key is returned."
                                :file +org-capture-central-project-changelog-file)))
                 ))))
 #+end_src
+#+name: structure-templates
+#+begin_src elisp
+(after! org
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("tw" . "tw"))
+  (add-to-list 'org-structure-template-alist '("lem" . "lem"))
+  (add-to-list 'org-structure-template-alist '("fakt" . "fakt"))
+  (add-to-list 'org-structure-template-alist '("deff" . "deff"))
+  (add-to-list 'org-structure-template-alist '("wn" . "wn"))
+  (add-to-list 'org-structure-template-alist '("uw" . "uw"))
+  (add-to-list 'org-structure-template-alist '("zad" . "zad"))
+  (add-to-list 'org-structure-template-alist '("prz" . "prz"))
+  (add-to-list 'org-structure-template-alist '("war" . "war"))
+  (add-to-list 'org-structure-template-alist '("sP" . "src gnuplot"))
+  (add-to-list 'org-structure-template-alist '("se" . "src elisp"))
+  (add-to-list 'org-structure-template-alist '("sp" . "src python"))
+  (add-to-list 'org-structure-template-alist '("sr" . "src R")))
+#+end_src
+
 I'm often writing documents both in Polish and English, so using both of these dictionaries should make it less pain.
 #+name: writingconf
 #+begin_src elisp
