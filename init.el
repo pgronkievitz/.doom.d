@@ -65,6 +65,7 @@
            pdf                 ; pdf enhancements
            rgb                 ; creating color strings
            terraform         ; infrastructure as code
+           tree-sitter
            upload              ; map local to remote projects via ssh/ftp
        :os
            tty               ; improve the terminal Emacs experience
@@ -72,20 +73,18 @@
            (beancount +lsp)         ; mind the GAAP
            ;;(cc
            ;; +lsp)               ; C > C++ == 1
-           ;;(csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
            data                ; config/data formats
            emacs-lisp          ; drown in parentheses
-           (ess +lsp)               ; emacs speaks statistics
            ;;(go +lsp)         ; the hipster dialect
            (json
+           +tree-sitter
            +lsp)              ; At least it ain't XML
-           ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
            (latex
            +latexmk
            +cdlatex)           ; writing papers in Emacs has never been so fun
            (lua +lsp +fennel)               ; one-based indices? one-based indices
            (markdown)
-           nix                 ; I hereby declare "nix geht mehr!"
+           (nix +tree-sitter)                 ; I hereby declare "nix geht mehr!"
            (org
            +dragndrop
            +gnuplot
@@ -100,13 +99,14 @@
            +lsp
            +conda
            +poetry
+           +tree-sitter
            +pyright)             ; beautiful is better than ugly
            rest              ; Emacs as a REST client
            ;;rst               ; ReST in peace
            ;;(rust
            ;;+lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-           sh                ; she sells {ba,z,fi}sh shells on the C xor
-           web               ; the tubes
+           (sh +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
+           (web +tree-sitter)               ; the tubes
            (yaml
            +lsp)              ; JSON, but readable
        :email
