@@ -273,6 +273,7 @@ Yuo cen't bee rong
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! websocket)
 (package! doct :recipe (:host github :repo "progfolio/doct"))
+(package! consult-org-roam :recipe (:host github :repo "jgru/consult-org-roam"))
 #+end_src
 ** Ye olde internet
 #+name: protopkgs
@@ -483,6 +484,13 @@ org-latex-minted-options '(("breaklines" "")
         :localleader
         :prefix ("m" . "org-roam")
         :desc "Open ORUI" :n "G" #'org-roam-ui-open)))
+(use-package! consult-org-roam
+  :after org-roam)
+(after! org
+  (map! (:map org-mode-map
+         :leader
+         :prefix ("n r" . "+roam")
+         :desc "Search roam" :n "S" #'consult-org-roam-search)))
 ;;; org-roam
 
 ;;;; create notes without entering
