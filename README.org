@@ -590,7 +590,7 @@ org-latex-minted-options '(("breaklines" "")
 (add-hook! 'org-mode-hook #'laas-mode)
 #+end_src
 #+name: agenda
-#+begin_src elisp
+#+begin_src elisp :noweb yes
 (setq org-lowest-priority ?C)
 (add-to-list 'org-modules 'ol-habit 'org-secretary)
 
@@ -688,6 +688,13 @@ org-latex-minted-options '(("breaklines" "")
           (tags-todo "inz")
           (tags-todo "kolo")))))
 (setq org-super-agenda-header-map (make-sparse-keymap))
+<<stuck>>
+#+end_src
+#+name: stuck
+#+begin_src elisp
+(setq org-tags-exclude-from-inheritance '("PROJ")
+      org-stuck-projects '("+PROJ/+TODO/+NEXT/+WIP/+INTR"
+                           ("TODO" "NEXT" "WIP" "INTR") ()))
 #+end_src
 #+name: orgconf
 #+begin_src elisp :noweb yes
