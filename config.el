@@ -3,6 +3,7 @@
     (setq user-mail-address "patryk.gronkiewicz@omniscopy.com")
     (setq user-mail-address "patryk@gronkiewicz.dev"))
 (setq doom-font (font-spec :family "BlexMono Nerd Font" :size 14)
+      doom-unicode-font (font-spec :family "BlexMono Nerd Font" :size 14)
       doom-big-font (font-spec :family "BlexMono Nerd Font" :size 28)
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 14)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 14))
@@ -134,6 +135,13 @@ org-latex-minted-options '(("breaklines" "")
         :localleader
         :prefix ("m" . "org-roam")
         :desc "Open ORUI" :n "G" #'org-roam-ui-open)))
+(use-package! consult-org-roam
+  :after org-roam)
+(after! org
+  (map! (:map org-mode-map
+         :leader
+         :prefix ("n r" . "+roam")
+         :desc "Search roam" :n "S" #'consult-org-roam-search)))
 ;;; org-roam
 
 ;;;; create notes without entering
@@ -236,9 +244,10 @@ org-latex-minted-options '(("breaklines" "")
       org-agenda-block-separator nil
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WIP(w)" "INTR(i)" "|" "DONE(d)" "DELEGATED(D)" "KILL(k)")
-                          (sequence "PROJ(p)" "DONE(d)")
-                          (sequence "[ ]" "[-]" "[X]")))
+(after! org
+    (setq org-todo-keywords '((sequence "IDEA(I)" "TODO(t)" "NEXT(n)" "WIP(w)" "INTR(i)" "|" "DONE(d)" "DELEGATED(D)" "KILL(k)")
+                            (sequence "PROJ(p)" "DONE(d)")
+                            (sequence "[ ]" "[-]" "[X]"))))
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -318,6 +327,9 @@ org-latex-minted-options '(("breaklines" "")
           (tags-todo "inz")
           (tags-todo "kolo")))))
 (setq org-super-agenda-header-map (make-sparse-keymap))
+(setq org-tags-exclude-from-inheritance '("PROJ")
+      org-stuck-projects '("+PROJ/+TODO/+NEXT/+WIP/+INTR"
+                           ("TODO" "NEXT" "WIP" "INTR") ()))
 (use-package! doct :commands doct)
 (after! org-capture
   (defun org-capture-select-template-prettier (&optional keys)
@@ -512,6 +524,21 @@ org-latex-minted-options '(("breaklines" "")
                                :heading "Unreleased"
                                :file +org-capture-central-project-changelog-file)))
                 ))))
+(after! org
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("tw" . "tw"))
+  (add-to-list 'org-structure-template-alist '("lem" . "lem"))
+  (add-to-list 'org-structure-template-alist '("fakt" . "fakt"))
+  (add-to-list 'org-structure-template-alist '("deff" . "deff"))
+  (add-to-list 'org-structure-template-alist '("wn" . "wn"))
+  (add-to-list 'org-structure-template-alist '("uw" . "uw"))
+  (add-to-list 'org-structure-template-alist '("zad" . "zad"))
+  (add-to-list 'org-structure-template-alist '("prz" . "prz"))
+  (add-to-list 'org-structure-template-alist '("war" . "war"))
+  (add-to-list 'org-structure-template-alist '("sP" . "src gnuplot"))
+  (add-to-list 'org-structure-template-alist '("se" . "src elisp"))
+  (add-to-list 'org-structure-template-alist '("sp" . "src python"))
+  (add-to-list 'org-structure-template-alist '("sr" . "src R")))
 (use-package! guess-language
   :config
   :init (add-hook 'text-mode-hook #'guess-language-mode)

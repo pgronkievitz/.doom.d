@@ -6,6 +6,7 @@
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! websocket)
 (package! doct :recipe (:host github :repo "progfolio/doct"))
+(package! consult-org-roam :recipe (:host github :repo "jgru/consult-org-roam"))
 (package! elpher)
 (package! elfeed-protocol)
 (package! guess-language)
