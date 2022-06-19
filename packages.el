@@ -12,3 +12,4 @@
 (package! guess-language)
 (unpin! doom-themes)
 (package! stimmung-themes :recipe (:host github :repo "motform/stimmung-themes"))
+(package! modus-themes :recipe (:host gitlab :repo "protesilaos/modus-themes"))

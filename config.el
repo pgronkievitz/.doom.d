@@ -8,19 +8,51 @@
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 14)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 14))
 (custom-set-faces!
-  '(org-level-1 :height 1.5)
-  '(org-level-2 :height 1.4)
-  '(org-level-3 :height 1.3)
-  '(org-level-4 :height 1.2)
-  '(org-level-5 :height 1.1)
+  ;; '(org-level-1 :height 1.5)
+  ;; '(org-level-2 :height 1.4)
+  ;; '(org-level-3 :height 1.3)
+  ;; '(org-level-4 :height 1.2)
+  ;; '(org-level-5 :height 1.1)
   '(org-table :inherit 'fixed-pitch)
   '(org-document-title :inherit 'variable-pitch :height 2.0)
   '(org-inline-src-block :inherit 'fixed-pitch)
   '(org-block :inherit 'fixed-pitch)
   '(line-number :inherit 'fixed-pitch)
   '(org-code :inherit 'fixed-pitch))
-(use-package! stimmung-themes )
-(setq doom-theme 'stimmung-themes-light)
+(use-package! modus-themes)
+(setq doom-theme 'modus-operandi)
+(after! modus-theme
+  (setq modus-themes-inhibit-reload t
+      modus-themes-bold-constructs t
+      modus-themes-italic-constructs t
+      modus-themes-syntax '(faint green-strings yellow-comments alt-syntax)
+      modus-themes-mixed-fonts t
+      modus-themes-links '(neutral-underline faint background italic)
+      modus-themes-prompts '(background intense)
+      modus-themes-mode-line '(moody accented)
+      modus-themes-completions '((matches . (background intense))
+                                (selection . (accented intense semibold underline))
+                                (popup . (accented intense)))
+      modus-themes-mail-citations 'faint
+      modus-themes-fringes 'subtle
+      modus-themes-lang-checkers '(straight-underline text-also faint)
+      modus-themes-hl-line '(accented)
+      modus-themes-markup '(intense background)
+      modus-themes-paren-match '(intense)
+      modus-themes-diffs 'desaturated
+      modus-themes-org-blocks 'tinted-backgrounds
+      modus-themes-org-agenda '((header-block . (variable-pitch 1.75))
+                                (header-date . (workaholic bold-all underline-today 1.5))
+                                (event . (accented))
+                                (scheduled . rainbow)
+                                (habit . traffic-light))
+      modus-themes-headings '((1 . (background variable-pitch 1.5))
+                              (2 . (background variable-pitch 1.4))
+                              (3 . (background variable-pitch 1.3))
+                              (4 . (background variable-pitch 1.2))
+                              (5 . (background variable-pitch 1.1))
+                              (t . (background variable-pitch)))
+      modus-themes-variable-pitch-ui t))
 (setq stimmung-themes-light-highlight-color "SkyBlue")
 (setq fancy-splash-image "~/Pictures/emacs.svg")
 (setq display-line-numbers-type 'relative)
