@@ -870,7 +870,7 @@ is selected, only the bare key is returned."
                    :type entry
                    :template ("* TODO %?"
                               "%a"))
-                  ("Personal note" :keys "n"
+                ("Personal note" :keys "n"
                    :icon ("sticky-note-o" :set "faicon" :color "green")
                    :file +org-capture-todo-file
                    :prepend t
@@ -884,21 +884,9 @@ is selected, only the bare key is returned."
                  :prepend t
                  :template ("* TODO %?"
                             " %a")
-                 :children (
-                            ("Koło" :keys "k" :icon ("university" :set "faicon" :color "magenta") :headline "Koło")
-                            ("Autoprezentacja i wystąpienia publiczne" :keys "a" :icon ("university" :set "faicon" :color "magenta") :headline "Autoprezentacja i wystąpienia publiczne")
-                            ("Ekonometria" :keys "e" :icon ("university" :set "faicon" :color "magenta") :headline "Ekonometria")
-                            ("Modelowanie danych" :keys "M" :icon ("university" :set "faicon" :color "magenta") :headline "Modelowanie danych")
-                            ("Nowoczesne metody uczenia maszynowego" :keys "m" :icon ("university" :set "faicon" :color "magenta") :headline "Nowoczesne metody uczenia maszynowego")
-                            ("Procesy stochastyczne" :keys "s" :icon ("university" :set "faicon" :color "magenta") :headline "Procesy stochastyczne")
-                            ("Rozwój kompetencji biznesowych" :keys "r" :icon ("university" :set "faicon" :color "magenta") :headline "Rozwój kompetencji biznesowych")
-                            ("Usługi sieciowe w biznesie" :keys "S" :icon ("university" :set "faicon" :color "magenta") :headline "Usługi sieciowe w biznesie")
-                            ("Wielowymiarowa analiza danych" :keys "d" :icon ("university" :set "faicon" :color "magenta") :headline "Wielowymiarowa analiza danych")
-                            ("Wnioskowanie w warunkach niepewności" :keys "n" :icon ("university" :set "faicon" :color "magenta") :headline "Wnioskowanie w warunkach niepewności")
-                            ("Teoria gier" :keys "g" :icon ("university" :set "faicon" :color "magenta") :headline "Teoria gier")
-                            ("J. angielski dla inżynierów" :keys "E" :icon ("university" :set "faicon" :color "magenta") :headline "J. angielski dla inżynierów")
-                            ("Projekt inżynierski" :keys "p" :icon ("university" :set "faicon" :color "magenta") :headline "Projekt inżynierski")                ))
-                                 ("Project" :keys "p"
+                 :children (("Koło" :keys "k" :icon ("university" :set "faicon" :color "magenta") :headline "Koło")
+                            ("Projekt inżynierski" :keys "p" :icon ("university" :set "faicon" :color "magenta") :headline "Projekt inżynierski")))
+                ("Project" :keys "p"
                    :icon ("repo" :set "octicon" :color "silver")
                    :prepend t
                    :type entry
@@ -943,8 +931,7 @@ is selected, only the bare key is returned."
                                :keys "c"
                                :time-or-todo "%U"
                                :heading "Unreleased"
-                               :file +org-capture-central-project-changelog-file)))
-                ))))
+                               :file +org-capture-central-project-changelog-file)))))))
 #+end_src
 #+name: structure-templates
 #+begin_src elisp
