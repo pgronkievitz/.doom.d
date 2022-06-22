@@ -7,3 +7,6 @@ tmp/
 *.tex
 *.html
 *.bbl
+config.el
+init.el
+packages.el
