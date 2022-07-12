@@ -279,6 +279,7 @@ Yuo cen't bee rong
 (package! websocket)
 (package! doct :recipe (:host github :repo "progfolio/doct"))
 (package! consult-org-roam :recipe (:host github :repo "jgru/consult-org-roam"))
+(package! biblio :recipe (:host github :repo "cpitclaudel/biblio.el"))
 #+end_src
 ** Ye olde internet
 #+name: protopkgs
@@ -551,6 +552,8 @@ org-latex-minted-options '(("breaklines" "")
 (setq org-cite-global-bibliography my/bibs)
 (setq citar-bibliography my/bibs)
 (setq org-cite-csl-styles-dir "~/Zotero/styles")
+
+(use-package! biblio :defer t)
 #+end_src
 #+name: publishing
 #+begin_src elisp
