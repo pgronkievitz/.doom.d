@@ -280,6 +280,7 @@ Yuo cen't bee rong
 (package! doct :recipe (:host github :repo "progfolio/doct"))
 (package! consult-org-roam :recipe (:host github :repo "jgru/consult-org-roam"))
 (package! biblio :recipe (:host github :repo "cpitclaudel/biblio.el"))
+(package! anki :recipe (:host github :repo "louietan/anki-editor"))
 #+end_src
 ** Ye olde internet
 #+name: protopkgs
@@ -732,6 +733,14 @@ org-latex-minted-options '(("breaklines" "")
       org-stuck-projects '("+PROJ/+TODO/+NEXT/+WIP/+INTR"
                            ("TODO" "NEXT" "WIP" "INTR") ()))
 #+end_src
+
+I want to edit anki flashcards directly inside emacs using orgmode, so I'm using ~anki-editor~.
+#+name: anki
+#+begin_src elisp
+(use-package! anki
+  :after org)
+#+end_src
+
 #+name: orgconf
 #+begin_src elisp :noweb yes
 <<notes>>
@@ -746,6 +755,7 @@ org-latex-minted-options '(("breaklines" "")
 <<agenda>>
 <<capture-templates>>
 <<structure-templates>>
+<<anki>>
 #+end_src
 
 #+name: prettify-capture
