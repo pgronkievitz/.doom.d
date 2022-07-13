@@ -629,6 +629,7 @@ org-latex-minted-options '(("breaklines" "")
 #+begin_src elisp :noweb yes
 (setq org-lowest-priority ?C)
 (add-to-list 'org-modules 'ol-habit 'org-secretary)
+(use-package! org-secretary)
 
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
