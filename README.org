@@ -738,7 +738,7 @@ org-latex-minted-options '(("breaklines" "")
 I want to edit anki flashcards directly inside emacs using orgmode, so I'm using ~anki-editor~.
 #+name: anki
 #+begin_src elisp
-(use-package! anki
+(use-package! anki-editor
   :after org)
 #+end_src
 
