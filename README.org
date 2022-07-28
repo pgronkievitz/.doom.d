@@ -219,7 +219,7 @@ Yuo cen't bee rong
                 (java +lsp))
             ((string= system-name "artemis")
                 (beancount +lsp)
-                (nix +tree-sitter)
+                (nix +lsp +tree-sitter)
                 (lua +lsp +fennel)))
 #+end_src
 ** Email
