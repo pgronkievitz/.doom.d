@@ -1085,8 +1085,8 @@ My beloved RSS feeds are stored in my custom FreshRSS instance. I access them wi
   :custom
   (elfeed-use-curl t)
   (elfeed-set-timeout 36000)
-  (elfeed-feeds '(("owncloud+https://pg@nc.lab.home"
-                    :api-url "https://rss.lab.home/api/fever.php"
+  (elfeed-feeds '(("fever+https://pg@rss.lab.home"
+                    :api-url "https://rss.lab.home/fever/"
                     :use-authinfo t
                     :autotags '(("https://forum.yeswas.pl/posts.rss" forums)
                                 ("https://www.rousette.org.uk/index.xml" blog tech)
