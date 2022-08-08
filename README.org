@@ -1026,6 +1026,12 @@ I have to write /a lot/ in R for classes, so ESS is rudimentary.
         (ess-fl-keyword:= . t)
         (ess-R-fl-keyword:F&T . t)))
 #+end_src
+#+name: pyconf
+#+begin_src elisp
+(after! python
+  (setq lsp-pyright-typechecking-mode "strict")
+  (setq lsp-pyright-diagnostic-mode "workspace"))
+#+end_src
 I don't use mu4e much, but it's nice to have.
 #+name: emailconf
 #+begin_src elisp
@@ -1136,6 +1142,7 @@ Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher
 <<writingconf>>
 <<projects>>
 <<rconf>>
+<<pyconf>>
 <<emailconf>>
 <<protoconf>>
 <<rss>>
