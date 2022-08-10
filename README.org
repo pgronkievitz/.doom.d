@@ -571,7 +571,7 @@ org-latex-minted-options '(("breaklines" "")
 (defvar my/bibs '("~/Documents/notes/bibliography.bib"))
 (setq org-cite-global-bibliography my/bibs)
 (setq citar-bibliography my/bibs)
-(setq org-cite-csl-styles-dir "~/Zotero/styles")
+(setq org-cite-csl-styles-dir "~/.local/share/doc_styles")
 
 (use-package! biblio :defer t)
 #+end_src
