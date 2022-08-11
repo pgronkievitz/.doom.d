@@ -281,6 +281,7 @@ Yuo cen't bee rong
 (package! consult-org-roam :recipe (:host github :repo "jgru/consult-org-roam"))
 (package! biblio :recipe (:host github :repo "cpitclaudel/biblio.el"))
 (package! anki :recipe (:host github :repo "louietan/anki-editor"))
+(package! org-glossary :recipe (:host github :repo "tecosaur/org-glossary"))
 #+end_src
 ** Ye olde internet
 #+name: protopkgs
@@ -498,6 +499,9 @@ org-latex-minted-options '(("breaklines" "")
 (setq LaTeX-provided-class-options '(("article" "a4paper" "12pt")
                                      ("report" "a4paper" "12pt")))
 (setq org-latex-pdf-process '("latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(use-package! org-glossary
+  :hook (org-mode . org-glossary-mode)
+  :config (add-to-list 'org-glossary-headings '("Glosariusz" . glossary)))
 #+end_src
 #+name: hugo
 #+begin_src elisp
@@ -570,7 +574,12 @@ org-latex-minted-options '(("breaklines" "")
 ;;; bibliography
 (defvar my/bibs '("~/Documents/notes/bibliography.bib"))
 (setq org-cite-global-bibliography my/bibs)
+
 (setq citar-bibliography my/bibs)
+(setq! citar-library-paths '("~/Documents/Whitepapers/")
+       citar-notes-paths   '("~/Documents/notes/whitepapers"))
+
+
 (setq org-cite-csl-styles-dir "~/.local/share/doc_styles")
 
 (use-package! biblio :defer t)
