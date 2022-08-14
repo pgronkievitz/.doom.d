@@ -314,11 +314,11 @@ I want to use different email address depending on what system I'm using. ~patry
 Fonts on my system always got extra bit of love.
 #+name: fonts
 #+begin_src elisp :noweb yes
-(setq doom-font (font-spec :family "BlexMono Nerd Font" :size 14)
-      doom-unicode-font (font-spec :family "BlexMono Nerd Font" :size 14)
-      doom-big-font (font-spec :family "BlexMono Nerd Font" :size 28)
-      doom-variable-pitch-font (font-spec :family "Merriweather" :size 14)
-      doom-serif-font (font-spec :family "UbuntuMono Nerd Font" :size 14))
+(setq doom-font (font-spec :family "DaddyTimeMono Nerd Font Mono" :size 15)
+      doom-unicode-font (font-spec :family "DaddyTimeMono Nerd Font Mono" :size 15)
+      doom-big-font (font-spec :family "DaddyTimeMono Nerd Font Mono" :size 30)
+      doom-variable-pitch-font (font-spec :family "Merriweather" :size 15)
+      doom-serif-font (font-spec :family "UbuntuMono Nerd Font Mono" :size 15))
 <<orgfonts>>
 #+end_src
 I've changed styles of orgmode buffers /a bit/ to make them more pleasure to work with. I have to figure out why my code in blocks is moving a bit with my cursor, but it's good enough for now.
