@@ -43,7 +43,9 @@ As all things should be - fill column and indent guides are lifesavers when writ
 #+begin_src elisp
 fill-column
 indent-guides       ; highlighted indent columns
-vc-gutter           ; vcs diff in the fringe
+(vc-gutter          ; vcs diff in the fringe
+ +pretty
+ +diff-hl)
 #+end_src
 ** Visual nicities
 #+name: nicevisui
