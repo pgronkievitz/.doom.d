@@ -894,7 +894,18 @@ is selected, only the bare key is returned."
 
   (setq doct-after-conversion-functions '(+doct-iconify-capture-templates))
   (setq org-capture-templates
-        (doct '(("Personal todo" :keys "t"
+        (doct '(
+                <<personal-capture>>
+                <<university-capture>>
+                <<project-capture>>
+                <<centralised-capture>>
+                  ))))
+#+end_src
+
+All I need for my personal workflow. Probably will add some health-tracking templates, but for now it's just okay
+#+name: personal-capture
+#+begin_src elisp
+("Personal todo" :keys "t"
                    :icon ("checklist" :set "octicon" :color "green")
                    :file +org-capture-todo-file
                    :prepend t
@@ -910,15 +921,25 @@ is selected, only the bare key is returned."
                    :type entry
                    :template ("* %?"
                               "%a"))
-                ("University" :keys "u"
-                 :icon ("university" :set "faicon" :color "blue")
-                 :file +org-capture-todo-file
-                 :prepend t
-                 :template ("* TODO %?"
-                            " %a")
-                 :children (("Koło" :keys "k" :icon ("university" :set "faicon" :color "magenta") :headline "Koło")
-                            ("Projekt inżynierski" :keys "p" :icon ("university" :set "faicon" :color "magenta") :headline "Projekt inżynierski")))
-                ("Project" :keys "p"
+#+end_src
+
+This semester I'm working just on our scientific club and my thesis, so just two templates, but will definitely increase in march.
+#+name: university-capture
+#+begin_src elisp
+("University" :keys "u"
+    :icon ("university" :set "faicon" :color "blue")
+    :file +org-capture-todo-file
+    :prepend t
+    :template ("* TODO %?"
+            " %a")
+    :children (("Koło" :keys "k" :icon ("university" :set "faicon" :color "magenta") :headline "Koło")
+            ("Projekt inżynierski" :keys "p" :icon ("university" :set "faicon" :color "magenta") :headline "Projekt inżynierski")))
+#+end_src
+
+Project-specific captures, rarely used unfortunately as I'm the only one who use Emacs at the moment.
+#+name: project-capture
+#+begin_src elisp
+("Project" :keys "p"
                    :icon ("repo" :set "octicon" :color "silver")
                    :prepend t
                    :type entry
@@ -941,30 +962,36 @@ is selected, only the bare key is returned."
                                :time-or-todo "%U"
                                :heading "Unreleased"
                                :file +org-capture-project-changelog-file)))
-                  ("\tCentralised project templates"
-                   :keys "o"
-                   :type entry
-                   :prepend t
-                   :template ("* %{time-or-todo} %?"
-                              "%i"
-                              "%a")
-                   :children (("Project todo"
-                               :keys "t"
-                               :prepend nil
-                               :time-or-todo "TODO"
-                               :heading "Tasks"
-                               :file +org-capture-central-project-todo-file)
-                              ("Project note"
-                               :keys "n"
-                               :time-or-todo "%U"
-                               :heading "Notes"
-                               :file +org-capture-central-project-notes-file)
-                              ("Project changelog"
-                               :keys "c"
-                               :time-or-todo "%U"
-                               :heading "Unreleased"
-                               :file +org-capture-central-project-changelog-file)))))))
 #+end_src
+
+Centralised project captures --- It's nice to keep this stuff in my own dir sometimes I guess?
+#+name: centralised-capture
+#+begin_src elisp
+("\tCentralised project templates"
+:keys "o"
+:type entry
+:prepend t
+:template ("* %{time-or-todo} %?"
+            "%i"
+            "%a")
+:children (("Project todo"
+            :keys "t"
+            :prepend nil
+            :time-or-todo "TODO"
+            :heading "Tasks"
+            :file +org-capture-central-project-todo-file)
+            ("Project note"
+            :keys "n"
+            :time-or-todo "%U"
+            :heading "Notes"
+            :file +org-capture-central-project-notes-file)
+            ("Project changelog"
+            :keys "c"
+            :time-or-todo "%U"
+            :heading "Unreleased"
+            :file +org-capture-central-project-changelog-file)))
+#+end_src
+
 #+name: structure-templates
 #+begin_src elisp
 (after! org
