@@ -1158,6 +1158,28 @@ Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher
 (evil-snipe-mode +1)
 (evil-snipe-override-mode +1)
 #+end_src
+
+#+name: irc
+#+begin_src elisp
+(defun my-fetch-password (&rest params)
+  (require 'auth-source )
+  (let ((match (car (apply #'auth-source-search params))))
+    (if match
+        (let ((secret (plist-get match :secret)))
+          (if (functionp secret)
+              (funcall secret)
+            secret))
+      (error "Password not found for %S" params))))
+
+(defun my-nickserv-password (server)
+  (my-fetch-password :user "pgronkievitz" :host "100.85.251.69"))
+
+(set-irc-server! "100.85.251.69"
+  '(:tls nil
+    :port 5000
+    :nick "pgronkievitz"
+    :sasl-password my-nickserver-password))
+#+end_src
 ** base :noexport:
 #+begin_src elisp :tangle config.el :noweb yes
 <<identity>>
@@ -1173,6 +1195,7 @@ Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher
 <<protoconf>>
 <<rss>>
 <<evil>>
+<<irc>>
 #+end_src
 
 * Host specific configuration
