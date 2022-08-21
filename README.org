@@ -132,7 +132,7 @@ Who needs anything else?
 #+name: terminal
 #+begin_src elisp
 :term
-    (:when (string= system-name "artemis") vterm)               ; the best terminal emulation in Emacs
+    vterm               ; the best terminal emulation in Emacs
 #+end_src
 ** Checking
 Yuo cen't bee rong
