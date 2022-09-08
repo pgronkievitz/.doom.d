@@ -1188,6 +1188,13 @@ Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher
     :nick "pgronkievitz"
     :sasl-password my-nickserver-password))
 #+end_src
+** Misc
+For some reason my emacs on work laptop doesn't get that I have ~~/.local/bin~ in my path, so here it comes.
+#+name: miscconf
+#+begin_src elisp
+(when (eq (system-name) "themis")
+  (add-to-list exec-path "/home/pg/.local/bin"))
+#+end_src
 ** base :noexport:
 #+begin_src elisp :tangle config.el :noweb yes
 <<identity>>
@@ -1204,6 +1211,7 @@ Sometimes I like to browse Gopher holes and Gemini capsules, so I'm using elpher
 <<rss>>
 <<evil>>
 <<irc>>
+<<miscconf>>
 #+end_src
 
 * Host specific configuration
