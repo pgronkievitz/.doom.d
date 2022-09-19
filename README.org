@@ -216,6 +216,7 @@ Yuo cen't bee rong
     (web +tree-sitter)               ; the tubes
     (yaml
     +lsp)              ; JSON, but readable
+    (scala +lsp +tree-sitter)
     (:cond ((string= system-name "themis")
                 (java +lsp))
             ((string= system-name "artemis")
