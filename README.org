@@ -41,7 +41,6 @@ doom-quit           ; DOOM quit-message prompts when you quit Emacs
 As all things should be - fill column and indent guides are lifesavers when writing in Python.
 #+name: devfeatui
 #+begin_src elisp
-fill-column
 indent-guides       ; highlighted indent columns
 (vc-gutter          ; vcs diff in the fringe
  +pretty
