@@ -628,8 +628,8 @@ org-latex-minted-options '(("breaklines" "")
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
 (after! org
-    (setq org-todo-keywords '((sequence "IDEA(I)" "TODO(t)" "NEXT(n)" "WIP(w)" "INTR(i)" "|" "DONE(d)" "DELEGATED(D)" "KILL(k)")
-                            (sequence "PROJ(p)" "DONE(d)")
+  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WIP(w)" "INTR(i)" "|" "DONE(d)" "DELEGATED(D)" "KILL(k)")
+                            (sequence "IDEA(I)" "PROJ(p)" "DONE(d)")
                             (sequence "[ ]" "[-]" "[X]"))))
 (setq org-agenda-custom-commands
       '(("o" "Overview"
@@ -643,73 +643,25 @@ org-latex-minted-options '(("breaklines" "")
                           :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
-                        '((:name "Next to do"
-                           :todo "NEXT"
-                           :order 1)
-                          (:name "Unclosed loops"
-                           :todo "WIP"
-                           :order 2)
+                        '(
                           (:name "Important"
-                           :tag "Important"
                            :priority "A"
-                           :order 6)
-                          (:name "Due Today"
-                           :deadline today
+                           :order 1)
+                          (:name "Deadline"
+                           :deadline t
                            :order 2)
-                          (:name "Due Soon"
-                           :deadline future
-                           :order 8)
-                          (:name "Overdue"
-                           :deadline past
-                           :face error
-                           :order 7)
-                          (:name "Self care"
-                           :tag "selfhelp"
-                           :order 9)
-                          (:name "Assignments"
-                           :tag "Assignment"
-                           :order 10)
-                          (:name "Issues"
-                           :tag "Issue"
-                           :order 12)
-                          (:name "Emacs"
-                           :tag "Emacs"
-                           :order 13)
-                          (:name "Projects"
-                           :tag "Project"
-                           :order 14)
-                          (:name "Research"
-                           :tag "Research"
-                           :order 15)
-                          (:name "To read"
-                           :tag "Read"
-                           :order 30)
-                          (:name "Waiting"
-                           :todo "WAITING"
-                           :order 20)
-                          (:name "Projekt inżynierski"
-                           :tag "inz"
-                           :order 31)
-                          (:name "University"
-                           :tag "uczelnia"
-                           :order 32)
-                          (:name "Computers"
-                           :tag "computers"
-                           :order 33)
-                          (:name "Selfhosted"
-                           :tag "selfhosted"
-                           :order 34)
-                          (:name "Trivial"
-                           :priority<= "E"
-                           :tag ("Trivial" "Unimportant")
-                           :todo ("SOMEDAY")
-                           :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily")))
-                          (:discard (:todo ("IDEA")))))))))
-       <<uni-agenda>>
-        ))
-(setq org-super-agenda-header-map (make-sparse-keymap))
-<<stuck>>
+                          (:name "In progress"
+                           :todo "WIP"
+                           :order 3)
+                          (:name "Habits"
+                           :habit t
+                           :date today
+                           :order 4)
+                          ))))))
+         <<uni-agenda>>
+         ))
+      (setq org-super-agenda-header-map (make-sparse-keymap))
+      <<stuck>>
 #+end_src
 
 #+name: uni-agenda
