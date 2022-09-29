@@ -316,29 +316,16 @@ I want to use different email address depending on what system I'm using. ~patry
 Fonts on my system always got extra bit of love.
 #+name: fonts
 #+begin_src elisp :noweb yes
-(setq doom-font (font-spec :family "Monofur Nerd Font Mono" :size 15)
-      doom-unicode-font (font-spec :family "Monofur Nerd Font Mono" :size 15)
-      doom-big-font (font-spec :family "Monofur Nerd Font Mono" :size 30)
+(setq doom-font (font-spec :family "Agave Nerd Font Mono" :size 15)
+      doom-unicode-font (font-spec :family "Agave Nerd Font Mono" :size 15)
+      doom-big-font (font-spec :family "Agave Nerd Font Mono" :size 30)
       doom-variable-pitch-font (font-spec :family "Merriweather" :size 15)
       doom-serif-font (font-spec :family "UbuntuMono Nerd Font Mono" :size 15))
-<<orgfonts>>
-#+end_src
-I've changed styles of orgmode buffers /a bit/ to make them more pleasure to work with. I have to figure out why my code in blocks is moving a bit with my cursor, but it's good enough for now.
-#+name: orgfonts
-#+begin_src elisp
-(custom-set-faces!
-  '(org-table :inherit 'fixed-pitch)
-  '(org-document-title :inherit 'variable-pitch :height 2.0)
-  '(org-inline-src-block :inherit 'fixed-pitch)
-  '(org-block :inherit 'fixed-pitch)
-  '(line-number :inherit 'fixed-pitch)
-  '(org-code :inherit 'fixed-pitch))
 #+end_src
 Using new ~ef-themes~ by Prot. Also I'm a bit bored by default DOOM splash, so I've set my own.
 #+name: theming
 #+begin_src elisp
-(use-package! ef-themes)
-(setq doom-theme 'ef-day)
+(setq doom-theme 'doom-one-light)
 (setq fancy-splash-image "~/Pictures/emacs.svg")
 (setq display-line-numbers-type 'relative)
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
