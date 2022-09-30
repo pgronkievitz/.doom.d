@@ -667,6 +667,9 @@ org-latex-minted-options '(("breaklines" "")
                     :habit t
                     :date today
                     :order 4)
+                    (:name "Low effort"
+                    :effort< "15"
+                    :order 5)
                     ))))))
 #+end_src
 #+name: uni-agenda
