@@ -316,11 +316,11 @@ I want to use different email address depending on what system I'm using. ~patry
 Fonts on my system always got extra bit of love.
 #+name: fonts
 #+begin_src elisp :noweb yes
-(setq doom-font (font-spec :family "Agave Nerd Font Mono" :size 15)
-      doom-unicode-font (font-spec :family "Agave Nerd Font Mono" :size 15)
-      doom-big-font (font-spec :family "Agave Nerd Font Mono" :size 30)
-      doom-variable-pitch-font (font-spec :family "Merriweather" :size 15)
-      doom-serif-font (font-spec :family "UbuntuMono Nerd Font Mono" :size 15))
+(setq doom-font (font-spec :family "Agave Nerd Font Mono" :size 22)
+      doom-unicode-font (font-spec :family "Agave Nerd Font Mono" :size 22)
+      doom-big-font (font-spec :family "Agave Nerd Font Mono" :size 44)
+      doom-variable-pitch-font (font-spec :family "Merriweather" :size 22)
+      doom-serif-font (font-spec :family "UbuntuMono Nerd Font Mono" :size 22))
 #+end_src
 Using new ~ef-themes~ by Prot. Also I'm a bit bored by default DOOM splash, so I've set my own.
 #+name: theming
