@@ -10,3 +10,10 @@ tmp/
 config.el
 init.el
 packages.el
+/README.bcf
+/README.fdb_latexmk
+/README.fls
+/README.out
+/README.pyg
+/README.toc
+/_minted-README/
